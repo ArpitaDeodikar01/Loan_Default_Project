@@ -1,0 +1,301 @@
+Bank_Name,Min_Credit_Score,Max_Loan_Amount,Min_Income,Min_Age,Max_Age,Education_Required,Employment_Type,Interest_Rate,Processing_Fee,Loan_Type
+Barclays,694,3339111,40877,22,55,12th Pass,Salaried,10.18,0.63,Business
+IndusInd Bank,677,3642450,27903,24,57,12th Pass,Salaried,8.91,0.49,Education
+IndusInd Bank,687,10062501,44588,22,58,Post Graduate,Salaried,8.77,0.6,Personal
+HSBC,656,11507007,27213,22,61,Graduate,Self Employed,8.72,0.36,Personal
+Citibank,728,7070074,56120,23,59,Graduate,Salaried,7.21,0.53,Vehicle
+Yes Bank,737,12749675,58925,23,56,12th Pass,Self Employed,8.04,0.37,Vehicle
+Barclays,685,7831021,56096,21,55,Graduate,Salaried,10.09,0.6,Vehicle
+Barclays,716,7204166,25657,25,55,Post Graduate,Self Employed,10.29,0.46,Business
+JP Morgan Chase,700,3286058,28546,22,64,Graduate,Salaried,9.25,0.69,Business
+IDFC First Bank,695,10447475,26490,24,59,12th Pass,Self Employed,9.8,0.4,Home
+Bank of Baroda,650,8732649,41046,21,60,Post Graduate,Self Employed,8.08,0.43,Home
+Kotak Mahindra,708,12369074,24689,22,64,Post Graduate,Salaried,9.13,0.5,Business
+CitiGroup,664,3875985,58849,22,59,12th Pass,Salaried,10.31,0.64,Education
+Bank of Baroda,750,5894532,41487,24,62,12th Pass,Self Employed,9.98,0.45,Home
+Bank of Baroda,711,6160184,32939,23,55,12th Pass,Salaried,9.45,0.75,Vehicle
+Yes Bank,730,13529044,19048,24,64,Graduate,Self Employed,10.03,0.32,Vehicle
+SBI,694,7869313,44834,25,63,Graduate,Salaried,8.4,0.32,Vehicle
+ICICI Bank,727,14997685,34177,23,58,12th Pass,Salaried,7.77,0.29,Vehicle
+CitiGroup,750,7985971,48571,25,57,Graduate,Self Employed,9.22,0.29,Education
+Deutsche Bank,693,7897109,24378,23,61,Graduate,Salaried,8.58,0.64,Home
+Barclays,719,12635646,51340,25,56,Post Graduate,Self Employed,8.49,0.29,Home
+BNY Mellon,706,12144479,39316,22,62,Post Graduate,Self Employed,7.2,0.32,Home
+ICICI Bank,696,13887633,45608,24,65,Graduate,Salaried,9.07,0.48,Personal
+Bank of America,689,7986342,58591,21,61,Post Graduate,Salaried,9.45,0.32,Personal
+SBI,698,14578057,21208,25,56,Graduate,Self Employed,7.87,0.51,Vehicle
+IDFC First Bank,731,5035129,32209,25,65,12th Pass,Salaried,10.11,0.27,Home
+Wells Fargo,680,4308857,56029,25,62,Graduate,Salaried,8.15,0.48,Vehicle
+Deutsche Bank,678,14045336,26920,21,59,Post Graduate,Self Employed,8.93,0.25,Business
+SBI,651,8045268,52422,23,59,Post Graduate,Self Employed,8.51,0.49,Personal
+Bank of Baroda,700,5800495,57634,21,57,Post Graduate,Self Employed,10.37,0.21,Personal
+CitiGroup,715,4272493,30553,25,57,Post Graduate,Self Employed,10.32,0.53,Business
+JP Morgan Chase,669,7884435,52047,21,55,12th Pass,Salaried,8.88,0.25,Personal
+ICICI Bank,652,14720935,42659,22,62,Post Graduate,Salaried,7.45,0.7,Education
+Bank of America,691,10378304,51876,23,65,12th Pass,Self Employed,9.22,0.57,Business
+Axis Bank,667,3935926,33572,23,62,Graduate,Salaried,10.0,0.23,Vehicle
+Kotak Mahindra,703,4563095,54801,21,59,Graduate,Salaried,8.06,0.39,Vehicle
+HDFC Bank,707,4459711,21955,21,59,12th Pass,Self Employed,8.9,0.46,Personal
+Punjab National Bank,687,13560528,33676,24,55,12th Pass,Salaried,9.63,0.36,Education
+IDFC First Bank,702,7653594,58549,24,61,Graduate,Self Employed,7.14,0.77,Business
+Barclays,741,5685005,24371,25,58,Post Graduate,Self Employed,7.47,0.59,Home
+HDFC Bank,720,3654666,40603,23,55,Post Graduate,Self Employed,9.41,0.46,Education
+IDFC First Bank,706,9907760,40488,22,60,Post Graduate,Self Employed,7.82,0.36,Business
+Citibank,716,9672247,55300,23,56,Post Graduate,Salaried,7.15,0.65,Home
+HSBC,668,11116922,36770,23,63,Graduate,Self Employed,9.35,0.44,Home
+JP Morgan Chase,728,8418042,20739,25,62,Post Graduate,Self Employed,8.33,0.73,Business
+Kotak Mahindra,653,5948084,27454,23,65,12th Pass,Self Employed,7.51,0.4,Personal
+JP Morgan Chase,739,6645653,22534,24,55,Graduate,Salaried,7.06,0.53,Education
+Deutsche Bank,724,5793255,57404,22,55,Graduate,Salaried,7.49,0.32,Business
+Citibank,749,13732461,46781,23,61,Post Graduate,Salaried,10.45,0.68,Vehicle
+Kotak Mahindra,658,10179511,24478,23,62,12th Pass,Salaried,8.75,0.73,Home
+Wells Fargo,709,9403237,40511,22,60,Graduate,Salaried,9.11,0.32,Education
+SBI,718,4334934,47620,22,56,12th Pass,Self Employed,8.16,0.4,Personal
+Axis Bank,656,3951712,52633,25,61,Post Graduate,Self Employed,8.8,0.2,Vehicle
+Deutsche Bank,657,9030592,46193,22,56,Graduate,Salaried,9.78,0.27,Education
+Barclays,685,10422057,27607,24,55,12th Pass,Salaried,9.56,0.22,Home
+Bank of Baroda,650,12942914,48888,22,64,Graduate,Salaried,7.4,0.77,Vehicle
+Axis Bank,668,12359761,59590,21,60,Graduate,Self Employed,10.32,0.59,Vehicle
+Citibank,679,6837068,35554,22,63,12th Pass,Self Employed,9.2,0.32,Education
+Yes Bank,740,5469458,33655,24,63,Graduate,Self Employed,7.07,0.73,Home
+Wells Fargo,686,3710528,37831,21,63,Graduate,Self Employed,8.25,0.7,Vehicle
+IDFC First Bank,664,6899583,24891,23,62,Post Graduate,Salaried,8.16,0.35,Home
+Deutsche Bank,652,12065780,21215,22,57,Post Graduate,Salaried,9.67,0.75,Business
+Wells Fargo,659,12314994,49793,23,55,12th Pass,Self Employed,9.41,0.35,Education
+IndusInd Bank,747,3142543,47210,25,55,Post Graduate,Salaried,8.06,0.6,Education
+Standard Chartered,740,5488934,48779,21,55,Post Graduate,Self Employed,7.21,0.73,Home
+IndusInd Bank,740,7226294,32552,21,63,Graduate,Self Employed,7.85,0.37,Education
+Barclays,706,6226300,41836,23,55,12th Pass,Salaried,7.82,0.56,Personal
+BNY Mellon,744,5643447,33311,25,62,Graduate,Self Employed,7.95,0.65,Home
+Deutsche Bank,705,14296455,33608,24,62,12th Pass,Self Employed,10.47,0.59,Vehicle
+CitiGroup,666,8939682,49367,22,57,Post Graduate,Self Employed,7.22,0.29,Home
+SBI,742,13250223,49184,21,56,Graduate,Self Employed,8.6,0.78,Home
+HDFC Bank,742,4315161,37702,24,56,12th Pass,Salaried,8.63,0.51,Personal
+Barclays,746,3733191,36859,21,62,12th Pass,Self Employed,10.25,0.23,Education
+SBI,739,9238557,51891,23,63,12th Pass,Self Employed,9.47,0.28,Education
+IndusInd Bank,698,3765821,36012,22,58,Graduate,Salaried,7.67,0.23,Home
+Kotak Mahindra,745,7098271,50469,24,60,Graduate,Self Employed,9.48,0.54,Vehicle
+Kotak Mahindra,736,3133065,52879,21,57,12th Pass,Self Employed,7.11,0.65,Personal
+Deutsche Bank,747,8771795,43643,22,64,12th Pass,Salaried,10.41,0.58,Education
+HSBC,741,5007038,45885,23,60,Graduate,Self Employed,7.48,0.39,Education
+Standard Chartered,730,3221593,25214,25,63,12th Pass,Salaried,7.24,0.54,Business
+Axis Bank,707,10842562,21137,22,58,12th Pass,Salaried,9.23,0.39,Education
+ICICI Bank,741,3660345,26428,22,55,12th Pass,Self Employed,8.17,0.36,Home
+BNY Mellon,666,12628243,28310,23,60,12th Pass,Self Employed,8.18,0.24,Personal
+Citibank,696,5170466,44515,25,62,Graduate,Salaried,9.01,0.53,Vehicle
+Deutsche Bank,724,4619475,52131,24,59,Post Graduate,Self Employed,9.65,0.65,Home
+Axis Bank,671,11807851,26075,25,57,Graduate,Salaried,9.36,0.24,Home
+IndusInd Bank,720,4853103,29858,23,61,12th Pass,Self Employed,9.61,0.47,Home
+JP Morgan Chase,730,12065388,37391,23,58,Post Graduate,Self Employed,8.16,0.45,Education
+BNY Mellon,703,4523998,51586,24,63,Post Graduate,Self Employed,10.0,0.54,Education
+Citibank,691,6726471,29700,25,57,Graduate,Self Employed,10.44,0.29,Personal
+Deutsche Bank,701,6888338,46324,25,59,Graduate,Self Employed,7.86,0.27,Education
+Wells Fargo,703,4778100,32339,21,61,Post Graduate,Self Employed,10.15,0.56,Personal
+HDFC Bank,750,8527346,24243,22,62,12th Pass,Salaried,9.82,0.27,Personal
+ICICI Bank,737,3077846,52991,24,65,12th Pass,Salaried,9.04,0.74,Home
+HSBC,718,6311381,29602,24,56,Graduate,Self Employed,9.14,0.53,Vehicle
+Wells Fargo,748,5477749,40851,21,55,Post Graduate,Self Employed,7.05,0.39,Education
+CitiGroup,685,5893170,31514,23,60,12th Pass,Self Employed,7.96,0.54,Business
+Axis Bank,652,13062094,28431,25,55,Post Graduate,Self Employed,9.45,0.55,Education
+Standard Chartered,685,12707116,55830,22,63,Post Graduate,Salaried,10.32,0.79,Business
+Wells Fargo,698,6083148,22864,21,59,Graduate,Self Employed,9.56,0.49,Vehicle
+Standard Chartered,725,12882020,35667,24,60,12th Pass,Self Employed,9.36,0.42,Business
+Axis Bank,694,7458258,56489,23,60,12th Pass,Salaried,10.24,0.38,Personal
+Yes Bank,660,7020112,34575,22,61,Post Graduate,Salaried,8.69,0.59,Business
+Axis Bank,657,5122617,31895,24,56,12th Pass,Self Employed,8.94,0.25,Business
+BNY Mellon,683,8019682,43062,24,65,Post Graduate,Self Employed,10.31,0.23,Home
+HSBC,691,10938739,18873,24,61,Graduate,Salaried,8.42,0.51,Business
+Deutsche Bank,722,8471958,51259,21,65,Post Graduate,Salaried,8.16,0.31,Home
+Barclays,703,7694362,43827,23,63,12th Pass,Self Employed,9.69,0.55,Education
+Standard Chartered,738,14283652,22520,23,56,Post Graduate,Salaried,9.0,0.64,Vehicle
+Standard Chartered,704,6385921,49860,21,65,Graduate,Salaried,9.93,0.24,Personal
+CitiGroup,728,4603661,28703,22,57,Graduate,Self Employed,9.33,0.26,Business
+Kotak Mahindra,746,4765476,40684,22,59,12th Pass,Self Employed,9.28,0.36,Vehicle
+JP Morgan Chase,716,3975672,44825,22,59,Post Graduate,Salaried,7.51,0.51,Vehicle
+JP Morgan Chase,701,4120259,18319,23,58,Graduate,Salaried,9.08,0.2,Personal
+HSBC,722,12175820,21059,21,56,12th Pass,Salaried,8.65,0.27,Home
+Axis Bank,658,7195013,54951,22,60,Post Graduate,Self Employed,9.09,0.71,Education
+Punjab National Bank,651,11499204,36795,23,63,Post Graduate,Self Employed,9.13,0.42,Business
+HDFC Bank,675,9427881,55934,25,56,12th Pass,Self Employed,7.28,0.52,Vehicle
+Punjab National Bank,665,9883380,40864,23,61,Post Graduate,Salaried,9.72,0.54,Home
+ICICI Bank,746,13339168,32767,22,62,12th Pass,Self Employed,8.67,0.39,Education
+Standard Chartered,700,7593546,45629,25,65,Graduate,Salaried,10.11,0.7,Business
+HDFC Bank,690,13798711,33854,25,55,Post Graduate,Self Employed,9.56,0.38,Education
+Punjab National Bank,697,7376701,29104,24,62,Graduate,Self Employed,8.17,0.75,Home
+HDFC Bank,736,3147442,18037,22,65,Post Graduate,Salaried,9.28,0.43,Home
+CitiGroup,733,8355586,32817,22,60,12th Pass,Salaried,7.1,0.68,Education
+Punjab National Bank,739,14413332,57340,23,61,12th Pass,Salaried,10.48,0.63,Business
+HSBC,686,13831570,32478,25,55,Graduate,Self Employed,8.27,0.76,Education
+Punjab National Bank,735,14664169,34587,24,62,12th Pass,Salaried,9.4,0.39,Business
+Yes Bank,711,8403721,25192,24,65,Post Graduate,Salaried,7.38,0.45,Home
+Wells Fargo,691,12317019,34740,23,56,Post Graduate,Salaried,8.3,0.24,Home
+Citibank,731,10133265,43428,21,63,Post Graduate,Self Employed,9.66,0.68,Education
+Citibank,705,11218120,45960,22,61,12th Pass,Salaried,10.13,0.43,Personal
+Deutsche Bank,677,4279246,40697,24,57,Post Graduate,Self Employed,8.8,0.66,Education
+IDFC First Bank,709,11457678,50616,25,60,12th Pass,Salaried,7.12,0.67,Education
+Kotak Mahindra,651,10352213,50592,25,58,Graduate,Self Employed,9.27,0.72,Home
+HSBC,737,10140850,24560,21,65,Graduate,Self Employed,10.38,0.44,Home
+Deutsche Bank,679,13849061,53620,23,62,12th Pass,Salaried,7.75,0.42,Business
+Bank of America,707,3114249,31433,22,60,12th Pass,Self Employed,9.58,0.33,Home
+Yes Bank,696,5275128,51367,22,59,Post Graduate,Self Employed,10.05,0.41,Personal
+Wells Fargo,748,11393594,36653,21,63,Post Graduate,Self Employed,10.14,0.36,Home
+Punjab National Bank,655,6512640,44215,22,65,12th Pass,Salaried,7.83,0.52,Vehicle
+Wells Fargo,678,10756368,44431,22,63,Graduate,Self Employed,7.14,0.37,Business
+Yes Bank,661,3009934,45459,23,59,12th Pass,Salaried,9.71,0.48,Vehicle
+CitiGroup,687,5147528,47106,25,58,Post Graduate,Self Employed,9.44,0.59,Vehicle
+Bank of America,722,9233973,37919,25,57,Graduate,Salaried,7.12,0.3,Personal
+BNY Mellon,698,9977024,37784,24,57,12th Pass,Self Employed,7.86,0.33,Business
+Standard Chartered,712,5762640,56891,23,61,12th Pass,Salaried,8.2,0.46,Vehicle
+Axis Bank,739,9230448,59395,21,64,Post Graduate,Self Employed,8.47,0.77,Business
+JP Morgan Chase,695,11613930,57965,25,65,Graduate,Self Employed,9.42,0.63,Home
+JP Morgan Chase,662,11971407,41830,23,58,12th Pass,Self Employed,10.49,0.49,Vehicle
+Deutsche Bank,703,8320393,49698,21,56,Graduate,Self Employed,7.35,0.48,Vehicle
+Axis Bank,710,9323232,22418,22,58,12th Pass,Self Employed,8.71,0.33,Vehicle
+Bank of Baroda,702,9516930,24686,21,58,Post Graduate,Self Employed,8.68,0.22,Home
+Deutsche Bank,673,7681500,35394,23,57,Post Graduate,Self Employed,8.28,0.49,Personal
+ICICI Bank,730,7053706,47444,24,58,Post Graduate,Self Employed,9.78,0.62,Personal
+HDFC Bank,720,10027326,25331,22,65,Graduate,Self Employed,8.14,0.21,Home
+CitiGroup,666,8343147,34125,24,64,Graduate,Self Employed,7.45,0.59,Home
+Citibank,678,6857099,39656,23,56,12th Pass,Salaried,8.47,0.27,Business
+SBI,724,3855992,24807,24,59,Post Graduate,Self Employed,9.29,0.52,Home
+JP Morgan Chase,689,8213854,34204,21,64,Graduate,Self Employed,9.5,0.55,Education
+SBI,669,6598730,26776,21,57,Graduate,Self Employed,9.97,0.73,Vehicle
+Barclays,678,11204369,52182,22,61,Post Graduate,Salaried,9.07,0.64,Education
+Yes Bank,684,14376085,51894,21,61,Graduate,Self Employed,7.65,0.34,Education
+Deutsche Bank,700,7444005,23569,22,59,Graduate,Salaried,7.87,0.68,Business
+Kotak Mahindra,691,5961269,22176,24,61,Graduate,Salaried,10.28,0.64,Home
+Deutsche Bank,677,3127847,46411,24,57,12th Pass,Salaried,10.24,0.7,Vehicle
+Barclays,699,3272495,48903,21,58,Post Graduate,Salaried,7.16,0.48,Home
+IndusInd Bank,698,5061669,40775,23,57,Post Graduate,Salaried,10.09,0.33,Business
+HDFC Bank,690,4270210,43849,24,63,12th Pass,Salaried,10.2,0.39,Vehicle
+Wells Fargo,661,5650604,30476,23,60,12th Pass,Salaried,8.5,0.66,Vehicle
+HDFC Bank,729,4682667,23123,23,61,Graduate,Salaried,7.51,0.63,Personal
+IDFC First Bank,724,4808228,24457,21,55,12th Pass,Self Employed,8.19,0.55,Vehicle
+Yes Bank,734,11960808,28034,21,58,Post Graduate,Salaried,9.29,0.24,Home
+ICICI Bank,682,7493685,28591,21,63,Graduate,Self Employed,7.36,0.71,Business
+Standard Chartered,661,10062988,46653,24,58,12th Pass,Self Employed,9.83,0.71,Education
+IndusInd Bank,723,6448867,59328,24,62,Post Graduate,Salaried,8.41,0.73,Business
+Bank of Baroda,674,7005057,30981,23,60,Graduate,Self Employed,8.03,0.57,Personal
+Wells Fargo,703,14636556,44271,24,57,12th Pass,Salaried,7.04,0.68,Vehicle
+CitiGroup,669,4892706,55749,24,57,12th Pass,Self Employed,7.96,0.29,Home
+Wells Fargo,683,10363907,40618,24,55,Graduate,Self Employed,7.38,0.21,Vehicle
+BNY Mellon,693,13247959,36805,23,58,Post Graduate,Self Employed,8.34,0.34,Education
+HSBC,656,9682675,26283,21,56,Post Graduate,Salaried,9.41,0.46,Home
+BNY Mellon,675,12849203,51255,23,64,Post Graduate,Self Employed,7.79,0.55,Home
+HSBC,662,4323025,49059,21,63,12th Pass,Salaried,8.57,0.59,Business
+Barclays,716,6941888,18184,25,55,12th Pass,Salaried,8.47,0.49,Education
+IDFC First Bank,746,4237919,54592,22,57,Graduate,Salaried,9.11,0.79,Education
+Barclays,686,13271581,34810,21,58,Graduate,Salaried,8.62,0.54,Personal
+JP Morgan Chase,736,5650566,25637,21,63,Post Graduate,Salaried,10.08,0.49,Business
+Punjab National Bank,690,3233861,39141,25,62,Post Graduate,Self Employed,9.58,0.21,Vehicle
+Kotak Mahindra,718,6448250,34117,25,59,Graduate,Self Employed,9.79,0.37,Personal
+Standard Chartered,710,13162850,35888,22,62,12th Pass,Salaried,7.03,0.53,Personal
+HSBC,739,14409628,23501,24,58,Post Graduate,Salaried,8.84,0.57,Home
+Yes Bank,662,9514761,27689,23,57,Graduate,Self Employed,7.05,0.79,Home
+Wells Fargo,696,12503853,40727,25,61,Graduate,Self Employed,8.5,0.65,Personal
+Punjab National Bank,672,12845459,51681,24,58,Post Graduate,Self Employed,9.27,0.58,Vehicle
+Bank of Baroda,652,9172386,40064,22,64,Post Graduate,Salaried,9.87,0.38,Vehicle
+IndusInd Bank,704,3696542,30265,22,55,Post Graduate,Salaried,10.49,0.52,Vehicle
+Bank of Baroda,655,9491267,30201,21,61,Graduate,Salaried,7.89,0.2,Personal
+IndusInd Bank,742,12540466,44742,22,57,Graduate,Self Employed,9.7,0.37,Personal
+JP Morgan Chase,698,11920398,41637,21,57,Graduate,Salaried,9.39,0.3,Business
+BNY Mellon,726,3435773,26262,25,59,Post Graduate,Self Employed,10.42,0.26,Vehicle
+Bank of Baroda,688,5403501,38792,21,56,Post Graduate,Salaried,8.15,0.26,Business
+BNY Mellon,668,10172698,38750,24,57,Graduate,Self Employed,10.34,0.7,Home
+Wells Fargo,652,14617004,54908,21,56,Post Graduate,Self Employed,10.45,0.59,Vehicle
+Axis Bank,734,13031773,34061,21,60,Post Graduate,Salaried,7.27,0.72,Vehicle
+Kotak Mahindra,662,14267731,46107,22,60,12th Pass,Salaried,10.39,0.63,Home
+Citibank,654,3127375,58210,24,65,12th Pass,Salaried,8.9,0.25,Business
+Deutsche Bank,742,14233175,25039,21,62,12th Pass,Salaried,9.85,0.48,Business
+ICICI Bank,693,11923784,40080,22,59,12th Pass,Self Employed,8.41,0.56,Business
+Standard Chartered,743,10245568,42297,21,56,Graduate,Salaried,8.14,0.34,Business
+Bank of America,667,13044742,23787,22,59,Graduate,Salaried,9.07,0.44,Home
+Barclays,698,11876986,26828,22,58,12th Pass,Salaried,8.83,0.35,Personal
+Barclays,702,4834219,57296,25,57,12th Pass,Salaried,10.39,0.37,Home
+Bank of America,668,11425554,48445,23,64,Graduate,Salaried,10.3,0.23,Vehicle
+Barclays,727,8677859,25491,22,60,12th Pass,Salaried,7.32,0.78,Business
+Deutsche Bank,737,13416795,44061,21,58,Graduate,Self Employed,8.42,0.31,Personal
+HDFC Bank,741,11427296,50378,21,56,Graduate,Self Employed,7.22,0.41,Home
+HDFC Bank,676,7207529,30639,22,63,Graduate,Self Employed,9.43,0.4,Business
+Deutsche Bank,663,8023507,57735,22,62,Graduate,Self Employed,7.44,0.63,Personal
+HDFC Bank,652,10436235,37743,23,61,Post Graduate,Salaried,10.05,0.41,Vehicle
+Kotak Mahindra,735,7826307,43245,23,56,12th Pass,Salaried,7.92,0.42,Education
+IndusInd Bank,710,3337769,50235,21,64,12th Pass,Salaried,9.97,0.58,Home
+Yes Bank,675,11492494,44306,22,65,12th Pass,Salaried,9.71,0.34,Vehicle
+Wells Fargo,665,8681046,48441,22,64,Post Graduate,Self Employed,10.39,0.42,Home
+SBI,671,5910810,40279,23,60,12th Pass,Salaried,9.24,0.69,Business
+Deutsche Bank,671,8784677,56384,22,61,12th Pass,Self Employed,9.21,0.23,Home
+Wells Fargo,737,10948880,29668,24,64,12th Pass,Self Employed,8.8,0.5,Personal
+Punjab National Bank,731,6122233,57246,23,64,12th Pass,Self Employed,7.56,0.36,Home
+Bank of Baroda,686,5332971,34212,24,55,12th Pass,Salaried,10.21,0.21,Education
+Kotak Mahindra,666,10254646,45199,21,58,Graduate,Self Employed,10.49,0.48,Home
+SBI,662,6013870,30881,23,59,Graduate,Salaried,8.26,0.32,Vehicle
+Bank of America,674,5604829,57251,23,64,Post Graduate,Salaried,8.01,0.43,Education
+Citibank,740,12882837,52647,23,61,Post Graduate,Salaried,7.57,0.26,Business
+Yes Bank,654,13517516,47744,21,62,Post Graduate,Self Employed,8.95,0.36,Business
+IndusInd Bank,691,14398274,35732,23,64,Graduate,Salaried,10.37,0.7,Home
+HSBC,742,10286291,43985,25,63,Graduate,Salaried,7.92,0.25,Business
+HDFC Bank,725,13307608,50541,21,57,12th Pass,Self Employed,9.35,0.22,Education
+SBI,657,11151674,26655,25,56,Graduate,Salaried,8.48,0.59,Education
+Kotak Mahindra,693,3491211,24810,22,63,Graduate,Salaried,9.06,0.37,Vehicle
+ICICI Bank,738,6097862,40887,24,59,12th Pass,Salaried,7.67,0.77,Personal
+Punjab National Bank,713,6373700,29101,25,56,Post Graduate,Salaried,7.58,0.79,Home
+Standard Chartered,704,10160263,26882,25,55,12th Pass,Self Employed,8.49,0.43,Home
+HSBC,668,3381153,59916,25,59,Graduate,Self Employed,7.99,0.6,Home
+Wells Fargo,731,8033296,26970,24,57,12th Pass,Salaried,8.01,0.23,Home
+Deutsche Bank,689,9781342,29059,24,55,12th Pass,Salaried,8.62,0.59,Business
+Axis Bank,659,6766529,45034,23,62,Graduate,Self Employed,9.02,0.27,Business
+CitiGroup,723,7361901,43260,25,59,12th Pass,Salaried,10.35,0.54,Personal
+ICICI Bank,727,8984256,25827,22,56,Graduate,Salaried,7.66,0.62,Education
+Standard Chartered,737,14700917,47385,23,64,Graduate,Self Employed,10.19,0.37,Personal
+Citibank,684,5563057,48180,22,55,12th Pass,Salaried,7.7,0.65,Education
+Barclays,744,11491449,50199,23,63,Graduate,Self Employed,7.45,0.4,Business
+HSBC,724,4095473,39192,22,57,Graduate,Salaried,8.84,0.34,Personal
+IndusInd Bank,683,6100395,42926,21,63,Post Graduate,Self Employed,7.55,0.23,Education
+Axis Bank,716,11966359,33649,25,62,Post Graduate,Self Employed,10.06,0.24,Education
+JP Morgan Chase,719,4878784,29649,25,63,12th Pass,Salaried,7.69,0.41,Vehicle
+Barclays,650,6132366,49216,25,61,Graduate,Self Employed,7.32,0.48,Home
+JP Morgan Chase,738,12495525,38169,22,55,12th Pass,Self Employed,9.62,0.51,Education
+Yes Bank,656,10815188,27612,21,61,12th Pass,Salaried,9.91,0.47,Business
+Yes Bank,711,14255314,38536,23,62,12th Pass,Self Employed,10.37,0.6,Personal
+HSBC,653,7223339,23086,21,64,Graduate,Salaried,10.43,0.35,Education
+ICICI Bank,688,7945804,37181,24,63,Graduate,Self Employed,8.62,0.71,Personal
+JP Morgan Chase,749,14695843,24203,24,55,Graduate,Salaried,8.46,0.58,Business
+Bank of Baroda,719,11794949,49007,23,63,Post Graduate,Salaried,8.02,0.45,Vehicle
+Deutsche Bank,723,5042284,32300,22,61,12th Pass,Salaried,8.28,0.57,Education
+CitiGroup,666,7003536,50936,25,58,12th Pass,Self Employed,9.24,0.61,Vehicle
+Standard Chartered,740,11992853,29122,23,60,Post Graduate,Self Employed,10.07,0.21,Vehicle
+Punjab National Bank,662,12101440,52825,23,59,Post Graduate,Self Employed,8.35,0.63,Vehicle
+Axis Bank,688,5661782,49592,22,63,12th Pass,Self Employed,10.05,0.69,Personal
+Bank of America,736,5670616,58570,22,62,12th Pass,Self Employed,7.73,0.68,Home
+IDFC First Bank,727,12176566,34658,22,55,Graduate,Self Employed,8.73,0.23,Vehicle
+BNY Mellon,705,8545335,53440,21,61,Graduate,Salaried,7.33,0.29,Personal
+Bank of America,727,10906948,46599,24,63,Graduate,Self Employed,8.39,0.22,Vehicle
+Citibank,725,8936701,42459,22,59,Post Graduate,Self Employed,9.79,0.49,Personal
+Bank of America,659,5844757,59800,23,63,Post Graduate,Self Employed,7.56,0.58,Home
+CitiGroup,661,7844568,53533,25,62,12th Pass,Salaried,10.1,0.44,Personal
+Yes Bank,687,12317304,41680,24,57,Graduate,Salaried,9.91,0.21,Vehicle
+Punjab National Bank,725,13638369,21522,25,65,Post Graduate,Self Employed,7.86,0.32,Home
+IDFC First Bank,702,5729502,25922,24,62,Graduate,Self Employed,7.73,0.25,Education
+Punjab National Bank,696,5612224,24580,24,62,12th Pass,Salaried,10.05,0.34,Education
+SBI,743,7985531,40362,21,63,Post Graduate,Salaried,8.58,0.59,Business
+Barclays,737,13794606,41713,23,65,Post Graduate,Salaried,9.97,0.74,Business
+Punjab National Bank,728,5733430,37558,25,63,Post Graduate,Self Employed,7.05,0.79,Home
+Deutsche Bank,726,8855605,48088,23,65,12th Pass,Salaried,7.43,0.67,Business
+BNY Mellon,718,9785531,35155,23,62,12th Pass,Salaried,10.44,0.4,Vehicle
+Citibank,729,4664091,22539,21,58,Post Graduate,Self Employed,8.35,0.22,Home
+Bank of Baroda,745,7855496,52122,22,63,Post Graduate,Salaried,9.13,0.25,Business
+JP Morgan Chase,732,10715125,28986,21,55,Graduate,Self Employed,9.47,0.74,Personal
+BNY Mellon,654,10338533,24085,22,64,12th Pass,Self Employed,7.23,0.26,Home
+Standard Chartered,668,8114136,31069,23,55,Post Graduate,Self Employed,7.38,0.58,Vehicle
+Axis Bank,664,13436685,47081,23,57,12th Pass,Self Employed,10.32,0.78,Home
+Deutsche Bank,692,9504311,49941,24,57,Graduate,Salaried,9.09,0.65,Personal
+HSBC,689,10568213,41334,23,56,Post Graduate,Self Employed,9.8,0.44,Vehicle
+Bank of Baroda,657,8132676,53282,24,59,Post Graduate,Salaried,7.57,0.42,Business
+ICICI Bank,732,9880527,54127,22,62,Post Graduate,Self Employed,9.86,0.48,Home
+CitiGroup,675,13055503,34266,23,55,Graduate,Self Employed,8.64,0.45,Personal
+IndusInd Bank,700,12114660,46727,25,58,Graduate,Salaried,10.44,0.46,Personal
+CitiGroup,678,5575864,25228,25,57,Post Graduate,Salaried,7.15,0.24,Home
+Wells Fargo,663,8934143,58706,23,63,Graduate,Self Employed,9.5,0.25,Education
+Yes Bank,707,11810039,32289,21,57,Post Graduate,Salaried,7.6,0.7,Personal
+SBI,683,12114231,19949,23,58,Graduate,Salaried,8.55,0.39,Business
