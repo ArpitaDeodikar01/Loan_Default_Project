@@ -1,3 +1,4 @@
+thisis original code
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,12 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Loan Dashboard</title>
 
-    <!-- ✅ Bootstrap + Chart.js -->
+    <!-- Bootstrap + Chart.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- ✅ Your Custom Styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <style>
         body {
@@ -30,14 +28,21 @@
             padding: 10px;
         }
 
-        #clustersChart {
-            height: 350px !important;
+        canvas {
+            max-width: 100%;
         }
     </style>
 </head>
 
 <body>
     <div class="container mt-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>🏦 AI Loan Dashboard</h2>
+            <a href="/logout" class="btn btn-outline-danger btn-sm">Logout</a>
+        </div>
+
+        <!-- Tabs -->
         <ul class="nav nav-tabs" id="featureTabs">
             <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#predict">Loan Prediction</a>
             </li>
@@ -48,7 +53,8 @@
         </ul>
 
         <div class="tab-content mt-3">
-            <!-- ===================== LOAN PREDICTION ===================== -->
+
+            <!-- LOAN PREDICTION -->
             <div id="predict" class="tab-pane fade show active">
                 <div class="card p-4">
                     <h4>Loan Default Risk Prediction</h4>
@@ -59,21 +65,43 @@
                                 placeholder="Loan Amount" required></div>
                         <div class="col-md-4"><input type="number" class="form-control" name="CreditScore"
                                 placeholder="Credit Score" required></div>
+                        <div class="col-md-4"><input type="number" class="form-control" name="Age" placeholder="Age"
+                                required></div>
+                        <div class="col-md-4"><input type="number" class="form-control" name="MonthsEmployed"
+                                placeholder="Months Employed" required></div>
+                        <div class="col-md-4"><input type="number" class="form-control" name="NumCreditLines"
+                                placeholder="Credit Lines" required></div>
+                        <div class="col-md-4"><input type="number" step="0.01" class="form-control" name="InterestRate"
+                                placeholder="Interest Rate %" required></div>
+                        <div class="col-md-4"><input type="number" class="form-control" name="LoanTerm"
+                                placeholder="Loan Term (months)" required></div>
+                        <div class="col-md-4"><input type="number" step="0.01" class="form-control" name="DTIRatio"
+                                placeholder="DTI Ratio" required></div>
                         <div class="col-12"><button class="btn btn-primary mt-3" type="submit">Predict</button></div>
                     </form>
                     <div id="predictResult" class="mt-3"></div>
                 </div>
             </div>
 
-            <!-- ===================== VISUALS ===================== -->
+            <!-- VISUAL INSIGHTS -->
             <div id="visuals" class="tab-pane fade">
                 <div class="row">
-                    <div class="col-md-6"><canvas id="educationChart"></canvas></div>
-                    <div class="col-md-6"><canvas id="corrChart"></canvas></div>
+                    <div class="col-md-6">
+                        <div class="card p-3">
+                            <h5>Default Rate by Education</h5>
+                            <canvas id="educationChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3">
+                            <h5>Feature Correlations</h5>
+                            <canvas id="corrChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- ===================== BANK RECOMMENDATION ===================== -->
+            <!-- BANK RECOMMENDATION -->
             <div id="banks" class="tab-pane fade">
                 <div class="card p-4">
                     <h4>Recommended Banks</h4>
@@ -84,9 +112,11 @@
                                 placeholder="Income" required></div>
                         <div class="col-md-4"><input type="number" name="Age" class="form-control" placeholder="Age"
                                 required></div>
-                        <div class="col-md-6"><input type="text" name="Education" class="form-control"
+                        <div class="col-md-4"><input type="number" name="LoanAmount" class="form-control"
+                                placeholder="Loan Amount" required></div>
+                        <div class="col-md-4"><input type="text" name="Education" class="form-control"
                                 placeholder="Education"></div>
-                        <div class="col-md-6"><input type="text" name="EmploymentType" class="form-control"
+                        <div class="col-md-4"><input type="text" name="EmploymentType" class="form-control"
                                 placeholder="Employment Type"></div>
                         <div class="col-12"><button class="btn btn-success mt-3" type="submit">Find Banks</button></div>
                     </form>
@@ -94,15 +124,89 @@
                 </div>
             </div>
 
-            <!-- ===================== CLUSTERS ===================== -->
+            <!-- CUSTOMER CLUSTERS -->
             <div id="clusters" class="tab-pane fade">
                 <div class="card p-4">
-                    <h4>Customer Segmentation by Income & Default</h4>
-                    <canvas id="clustersChart"></canvas>
+                    <h4>Customer Risk Segmentation</h4>
+                    <p class="text-muted">6 clusters based on Income, Credit Score, Education, Marital Status, and
+                        Employment Type</p>
+
+                    <div id="clusterLoading" class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+                    <!-- Cluster Stats Table -->
+                    <div id="clusterStats" style="display:none;" class="mb-4"></div>
+
+                    <!-- Charts -->
+                    <div class="row">
+                        <div class="col-md-8">
+                            <canvas id="clustersChart" width="600" height="400" style="display:none;"></canvas>
+                        </div>
+                        <div class="col-md-4">
+                            <canvas id="clusterPie" width="300" height="300" style="display:none;"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Test Your Risk -->
+                    <div class="card mt-4 bg-light" style="display:none;" id="clusterTestCard">
+                        <div class="card-body">
+                            <h5>🎯 Find Your Risk Cluster</h5>
+                            <form id="clusterTestForm" class="row g-2">
+                                <div class="col-md-3">
+                                    <input type="number" name="Income" class="form-control" placeholder="Income"
+                                        required>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" name="CreditScore" class="form-control"
+                                        placeholder="Credit Score" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" name="Age" class="form-control" placeholder="Age" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" name="LoanAmount" class="form-control"
+                                        placeholder="Loan Amount" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="Education" class="form-control" required>
+                                        <option value="">Select Education</option>
+                                        <option value="High School">High School</option>
+                                        <option value="Bachelor's">Bachelor's</option>
+                                        <option value="Master's">Master's</option>
+                                        <option value="PhD">PhD</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="MaritalStatus" class="form-control" required>
+                                        <option value="">Select Marital Status</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="EmploymentType" class="form-control" required>
+                                        <option value="">Select Employment</option>
+                                        <option value="Unemployed">Unemployed</option>
+                                        <option value="Self-employed">Self-employed</option>
+                                        <option value="Full-time">Full-time</option>
+                                        <option value="Part-time">Part-time</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Find My Cluster</button>
+                                </div>
+                            </form>
+                            <div id="clusterTestResult" class="mt-3"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- ===================== CHATBOT ===================== -->
+            <!-- CHATBOT -->
             <div id="chat" class="tab-pane fade">
                 <div class="card p-4">
                     <h4>Ask the AI Advisor (Gemini)</h4>
@@ -113,29 +217,40 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
-    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
-            // ============ LOAN PREDICTION ============
+            // --- Loan Prediction ---
             document.getElementById("predictForm").addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const data = Object.fromEntries(new FormData(e.target).entries());
-                const res = await fetch("/api/predict", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-                const out = await res.json();
-                document.getElementById("predictResult").innerHTML = res.ok
-                    ? `<div class='alert alert-info'>Risk Probability: ${(out.probability * 100).toFixed(2)}%<br>${out.suggestion}</div>`
-                    : `<div class='alert alert-danger'>${out.error}</div>`;
+                try {
+                    const res = await fetch("/api/predict", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+                    const out = await res.json();
+                    document.getElementById("predictResult").innerHTML = res.ok
+                        ? `<div class='alert alert-info'>
+                            <strong>Risk Probability:</strong> ${(out.probability * 100).toFixed(2)}%<br>
+                            <strong>Monthly Payment:</strong> ₹${out.monthly_payment}<br>
+                            <strong>Estimated Duration:</strong> ${out.estimated_months} months<br>
+                            <strong>Suggestion:</strong> ${out.suggestion || ''}
+                           </div>`
+                        : `<div class='alert alert-danger'>${out.error}</div>`;
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById("predictResult").innerHTML = `<div class='alert alert-danger'>Server error</div>`;
+                }
             });
 
-            // ============ VISUALS ============
+            // --- Visual Insights ---
             async function loadVisuals() {
                 try {
                     const res = await fetch("/api/visuals");
@@ -149,6 +264,12 @@
                                 data: data.default_by_education.map(d => d.Default),
                                 backgroundColor: ["#007bff", "#28a745", "#ffc107", "#dc3545", "#17a2b8"]
                             }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'bottom' }
+                            }
                         }
                     });
 
@@ -156,70 +277,296 @@
                         type: "bar",
                         data: {
                             labels: Object.keys(data.correlations),
-                            datasets: [{ label: "Correlation", data: Object.values(data.correlations) }]
-                        }
-                    });
-                } catch (e) { console.error("Visuals load failed:", e); }
-            }
-            loadVisuals();
-
-            // ============ BANK RECOMMENDATION ============
-            document.getElementById("bankForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const data = Object.fromEntries(new FormData(e.target).entries());
-                const res = await fetch("/api/recommend_bank", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-                const out = await res.json();
-                document.getElementById("bankResult").innerHTML = res.ok
-                    ? `<pre>${JSON.stringify(out, null, 2)}</pre>`
-                    : `<div class='alert alert-warning'>${out.message || out.error}</div>`;
-            });
-
-            // ============ CLUSTERS ============
-            async function loadClusters() {
-                try {
-                    const res = await fetch("/api/clusters");
-                    if (!res.ok) return;
-                    const data = await res.json();
-                    const ctx = document.getElementById("clustersChart").getContext("2d");
-                    const clusters = [...new Set(data.map(d => d.Cluster))];
-                    new Chart(ctx, {
-                        type: "scatter",
-                        data: {
-                            datasets: clusters.map(c => ({
-                                label: "Cluster " + c,
-                                data: data.filter(d => d.Cluster === c).map(d => ({ x: d.Income, y: d.Default })),
-                                pointRadius: 4
-                            }))
+                            datasets: [{
+                                label: "Correlation with Default",
+                                data: Object.values(data.correlations),
+                                backgroundColor: '#6c757d'
+                            }]
                         },
                         options: {
+                            responsive: true,
                             scales: {
-                                x: { title: { display: true, text: "Income" } },
-                                y: { title: { display: true, text: "Default" } }
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
                     });
-                } catch (e) { console.error("Cluster load failed:", e); }
+                } catch (e) {
+                    console.error("Visuals load failed:", e);
+                }
+            }
+            loadVisuals();
+
+            // --- Bank Recommendation ---
+            document.getElementById("bankForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(e.target).entries());
+                try {
+                    const res = await fetch("/api/recommend_bank", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+                    const out = await res.json();
+                    const box = document.getElementById("bankResult");
+
+                    if (!res.ok || out.error || out.message) {
+                        box.innerHTML = `<div class='alert alert-warning'>${out.error || out.message}</div>`;
+                    } else {
+                        // Handle array of banks
+                        const banks = Array.isArray(out) ? out : [out];
+                        box.innerHTML = `<h5>🏦 Recommended Banks</h5><div class="list-group">` +
+                            banks.map(r => `
+                                <div class="list-group-item">
+                                    <h6 class="mb-1">${r.Bank_Name || 'N/A'}</h6>
+                                    <p class="mb-1">
+                                        <strong>Interest Rate:</strong> ${r.Interest_Rate || 'N/A'}% | 
+                                        <strong>Processing Fee:</strong> ₹${r.Processing_Fee || 'N/A'} |
+                                        <strong>Loan Type:</strong> ${r.Loan_Type || 'N/A'}
+                                    </p>
+                                </div>
+                            `).join('') +
+                            `</div>`;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById("bankResult").innerHTML = `<div class='alert alert-danger'>Server error</div>`;
+                }
+            });
+
+            // --- Customer Clusters ---
+            async function loadClusters() {
+                try {
+                    const res = await fetch("/api/clusters");
+                    if (!res.ok) {
+                        const error = await res.json();
+                        document.getElementById("clusterLoading").innerHTML =
+                            `<div class='alert alert-danger'>${error.error || 'Failed to load clusters'}</div>`;
+                        return;
+                    }
+
+                    const data = await res.json();
+
+                    // Hide loading spinner
+                    document.getElementById("clusterLoading").style.display = 'none';
+                    document.getElementById("clustersChart").style.display = 'block';
+                    document.getElementById("clusterPie").style.display = 'block';
+                    document.getElementById("clusterTestCard").style.display = 'block';
+
+                    // Check if new clustering format (has risk_label)
+                    const isNewFormat = data.clusters[0] && data.clusters[0].risk_label;
+
+                    if (isNewFormat) {
+                        // Show cluster stats table
+                        const statsDiv = document.getElementById("clusterStats");
+                        statsDiv.style.display = 'block';
+                        statsDiv.innerHTML = `
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Cluster</th>
+                                        <th>Risk Level</th>
+                                        <th>Size</th>
+                                        <th>Avg Income</th>
+                                        <th>Avg Credit</th>
+                                        <th>Default Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.clusters.map(c => `
+                                        <tr>
+                                            <td><span class="badge" style="background-color: ${c.color}">Cluster ${c.cluster_id}</span></td>
+                                            <td>${c.risk_label}</td>
+                                            <td>${c.size}</td>
+                                            <td>₹${c.avg_income.toFixed(0)}</td>
+                                            <td>${c.avg_credit.toFixed(0)}</td>
+                                            <td>${(c.default_rate * 100).toFixed(1)}%</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+
+                        // Scatter chart with risk labels
+                        const ctx = document.getElementById("clustersChart").getContext("2d");
+                        new Chart(ctx, {
+                            type: "scatter",
+                            data: {
+                                datasets: data.clusters.map(cluster => ({
+                                    label: `${cluster.risk_label} (Cluster ${cluster.cluster_id})`,
+                                    data: cluster.points.map(p => ({
+                                        x: p.income,
+                                        y: p.credit_score || p.default_prob
+                                    })),
+                                    backgroundColor: cluster.color,
+                                    pointRadius: 4,
+                                    pointHoverRadius: 6
+                                }))
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: "Customer Risk Segmentation: Income vs Credit Score",
+                                        font: { size: 16 }
+                                    },
+                                    legend: { position: 'bottom' }
+                                },
+                                scales: {
+                                    x: {
+                                        title: { display: true, text: "Income (₹)" },
+                                        beginAtZero: true
+                                    },
+                                    y: {
+                                        title: { display: true, text: "Credit Score" },
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                        // Pie chart by risk level
+                        const pieCtx = document.getElementById("clusterPie").getContext("2d");
+                        const riskGroups = {};
+                        data.clusters.forEach(c => {
+                            if (!riskGroups[c.risk_label]) {
+                                riskGroups[c.risk_label] = { size: 0, color: c.color };
+                            }
+                            riskGroups[c.risk_label].size += c.size;
+                        });
+
+                        new Chart(pieCtx, {
+                            type: "pie",
+                            data: {
+                                labels: Object.keys(riskGroups),
+                                datasets: [{
+                                    data: Object.values(riskGroups).map(g => g.size),
+                                    backgroundColor: Object.values(riskGroups).map(g => g.color)
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    title: { display: true, text: "Customer Distribution by Risk Level" },
+                                    legend: { position: 'bottom' }
+                                }
+                            }
+                        });
+
+                    } else {
+                        // Legacy format
+                        const ctx = document.getElementById("clustersChart").getContext("2d");
+                        new Chart(ctx, {
+                            type: "scatter",
+                            data: {
+                                datasets: data.clusters.map((cluster, i) => ({
+                                    label: `Cluster ${i + 1}`,
+                                    data: cluster.points.map(p => ({ x: p.income, y: p.default_prob })),
+                                    backgroundColor: cluster.color,
+                                    pointRadius: 5
+                                }))
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    title: { display: true, text: "Customer Segmentation by Income & Default" },
+                                    legend: { position: 'bottom' }
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: "Income" }, beginAtZero: true },
+                                    y: { title: { display: true, text: "Default Probability" }, beginAtZero: true, max: 1 }
+                                }
+                            }
+                        });
+
+                        const pieCtx = document.getElementById("clusterPie").getContext("2d");
+                        new Chart(pieCtx, {
+                            type: "pie",
+                            data: {
+                                labels: data.clusters.map((_, i) => `Cluster ${i + 1}`),
+                                datasets: [{
+                                    data: data.clusters.map(c => c.size),
+                                    backgroundColor: data.clusters.map(c => c.color)
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    title: { display: true, text: "Cluster Size Distribution" },
+                                    legend: { position: 'bottom' }
+                                }
+                            }
+                        });
+                    }
+
+                } catch (e) {
+                    console.error("Cluster load failed:", e);
+                    document.getElementById("clusterLoading").innerHTML =
+                        `<div class='alert alert-danger'>Failed to load cluster data</div>`;
+                }
             }
             loadClusters();
 
-            // ============ CHATBOT ============
-            document.getElementById("chatSend").addEventListener("click", async () => {
+            // --- Cluster Assignment Test ---
+            document.getElementById("clusterTestForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(e.target).entries());
+                const resultDiv = document.getElementById("clusterTestResult");
+
+                try {
+                    const res = await fetch("/api/assign_cluster", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+                    const out = await res.json();
+
+                    if (res.ok) {
+                        resultDiv.innerHTML = `
+                            <div class='alert' style='background-color: ${out.color}; color: white;'>
+                                <strong>${out.message}</strong><br>
+                                <small>Cluster ID: ${out.cluster} | Risk Level: ${out.risk_label}</small>
+                            </div>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `<div class='alert alert-danger'>${out.error}</div>`;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    resultDiv.innerHTML = `<div class='alert alert-danger'>Server error</div>`;
+                }
+            });
+
+            // --- AI Chatbot ---
+            document.getElementById("chatSend").addEventListener("click", sendMessage);
+            document.getElementById("chatInput").addEventListener("keypress", (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            async function sendMessage() {
                 const msg = document.getElementById("chatInput").value.trim();
                 if (!msg) return;
                 const chatBox = document.getElementById("chatBox");
-                chatBox.innerHTML += `<div><b>You:</b> ${msg}</div>`;
+                chatBox.innerHTML += `<div class="mb-2"><strong>You:</strong> ${msg}</div>`;
                 document.getElementById("chatInput").value = "";
-                const res = await fetch("/api/chat", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: msg })
-                });
-                const out = await res.json();
-                chatBox.innerHTML += `<div><b>Bot:</b> ${out.reply}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            });
+
+                try {
+                    const res = await fetch("/api/chat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ message: msg })
+                    });
+                    const out = await res.json();
+                    chatBox.innerHTML += `<div class="mb-2"><strong>Bot:</strong> ${out.reply || 'No response'}</div>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                } catch (err) {
+                    console.error(err);
+                    chatBox.innerHTML += `<div class="mb-2 text-danger"><strong>Bot:</strong> Server error</div>`;
+                }
+            }
+
         });
     </script>
 </body>
