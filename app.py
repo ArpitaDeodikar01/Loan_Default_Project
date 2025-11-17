@@ -4,9 +4,26 @@ import joblib
 import numpy as np
 import pandas as pd
 import requests
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from sklearn.preprocessing import LabelEncoder
 from dotenv import load_dotenv
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34,6 +51,14 @@ from dotenv import load_dotenv
 
 
 
+
+
+
+
+
+
+
+
 # Will be set after BASE is defined
 
 
@@ -51,7 +76,39 @@ from dotenv import load_dotenv
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #print("🔑 Loaded GEMINI_API_KEY:", "✅ Found" if GEMINI_API_KEY else "❌ Missing")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -87,7 +144,25 @@ app.secret_key = "super-secret-key-for-session-management"
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 BASE = os.path.dirname(os.path.abspath(__file__))
+
+
 
 
 # Load .env file from the project root directory explicitly
@@ -100,14 +175,34 @@ else:
     print(f"⚠️ .env file not found at {env_path}, using default location")
 
 
+
+
 # Set Gemini API variables after ensuring .env is loaded
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCkQLhMPMTdF8dmmFfOUceFT8mVhahl7ls")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 
+
+
 # Debug: Print what we loaded
 print(f"🔑 GEMINI_API_KEY: {'✅ Found' if GEMINI_API_KEY else '❌ Missing'} (first 10 chars: {GEMINI_API_KEY[:10] if GEMINI_API_KEY else 'N/A'}...)")
 print(f"🤖 GEMINI_MODEL: {GEMINI_MODEL}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -135,7 +230,23 @@ print(f"🤖 GEMINI_MODEL: {GEMINI_MODEL}")
 
 
 
+
+
+
+
+
+
+
+
 MODELS_DIR = os.path.join(BASE, "models")
+
+
+
+
+
+
+
+
 
 
 
@@ -147,6 +258,15 @@ MODELS_DIR = os.path.join(BASE, "models")
 DATA_PATH = os.path.join(BASE, "data", "loan_data.csv")
 BANK_DATA_PATH = os.path.join(BASE, "data", "bank_data.csv")
 USERS_FILE = os.path.join(BASE, "users.json")
+PORTFOLIO_FILE = os.path.join(BASE, "user_portfolio.json")
+
+
+
+
+
+
+
+
 
 
 
@@ -165,6 +285,14 @@ if not os.path.exists(DATA_PATH):
 
 
 
+
+
+
+
+
+
+
+
 try:
     df = pd.read_csv(DATA_PATH, engine='python', encoding='utf-8', on_bad_lines='skip')
     print(f"✅ Loaded {len(df)} rows from loan_data.csv")
@@ -175,6 +303,22 @@ except Exception as e:
         print(f"✅ Loaded {len(df)} rows with latin-1 encoding")
     except Exception as e2:
         raise SystemExit(f"Failed to load data file: {e2}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -212,7 +356,39 @@ NUM_COLS = ['Age', 'Income', 'LoanAmount', 'CreditScore',
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ALL_FEATURES = NUM_COLS + CAT_COLS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -256,12 +432,44 @@ for c in CAT_COLS:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def try_load(name):
     """Try loading a model file with different extensions"""
     path = os.path.join(MODELS_DIR, name)
     if os.path.exists(path):
         return joblib.load(path)
     return None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -290,6 +498,14 @@ label_encoders_loaded = try_load("encoders.joblib")
 
 
 
+
+
+
+
+
+
+
+
 # Load clustering models and new metadata
 kmeans_clustering = try_load("kmeans_clustering.joblib")
 cluster_preprocessor = try_load("cluster_preprocessor.joblib")
@@ -301,10 +517,18 @@ cluster_feature_names = try_load("cluster_feature_names.joblib") # NEW
 
 
 
+
+
+
+
 # Load XGBoost bank recommendation model
 xgb_bank_model = try_load("xgb_bank_model.joblib")
 bank_label_encoders = try_load("bank_label_encoders.joblib")
 xgb_feature_columns = try_load("xgb_feature_columns.joblib")
+
+
+
+
 
 
 
@@ -326,6 +550,14 @@ if os.path.exists(BANK_DATA_PATH):
 
 
 
+
+
+
+
+
+
+
+
 print("🔹 RF Model:", "✅ Loaded" if rf_model else "❌ Not found")
 print("🔹 Scaler:", "✅ Loaded" if scaler else "❌ Not found")
 print("🔹 KMeans Clustering:", "✅ Loaded" if kmeans_clustering else "❌ Not found")
@@ -334,6 +566,22 @@ print("🔹 Risk Scaler Params:", "✅ Loaded" if risk_scaler_params else "❌ N
 print("🔹 XGBoost Bank Model:", "✅ Loaded" if xgb_bank_model else "❌ Not found")
 print("🔹 Bank Label Encoders:", "✅ Loaded" if bank_label_encoders else "❌ Not found")
 print("🔹 XGBoost Feature Columns:", "✅ Loaded" if xgb_feature_columns else "❌ Not found")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -374,9 +622,77 @@ def load_users():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def save_users(u):
     with open(USERS_FILE, 'w') as f:
         json.dump(u, f)
+
+
+
+
+# ===========================================================
+# ✅ Portfolio Storage (Per-User Prediction History)
+# ===========================================================
+def load_portfolio_history():
+    """Load per-user prediction history from disk."""
+    if not os.path.exists(PORTFOLIO_FILE):
+        return {}
+    try:
+        with open(PORTFOLIO_FILE, "r") as f:
+            data = json.load(f)
+            # Ensure structure is always a dict
+            return data if isinstance(data, dict) else {}
+    except Exception:
+        # On any error, fall back to empty to avoid breaking the app
+        return {}
+
+
+
+
+def save_portfolio_history(history):
+    """Persist portfolio history to disk."""
+    try:
+        with open(PORTFOLIO_FILE, "w") as f:
+            json.dump(history, f)
+    except Exception as e:
+        print(f"⚠️ Could not save portfolio history: {e}")
+
+
+
+
+# In-memory cache of portfolio; persisted on each update for simplicity
+portfolio_history = load_portfolio_history()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -417,6 +733,22 @@ def index():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -428,6 +760,22 @@ def login():
             return redirect(url_for("dashboard"))
         return render_template("login.html", error="Invalid credentials")
     return render_template("login.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -473,10 +821,42 @@ def register():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/logout")
 def logout():
     session.pop("user", None)
     return redirect(url_for("login"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -508,6 +888,22 @@ def dashboard():
     }
    
     return render_template("dashboard.html", categories=category_options, features=ALL_FEATURES, bank_categories=bank_categories)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -560,6 +956,22 @@ def encode_input(data):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ===========================================================
 # ✅ Prediction Endpoint (UNCHANGED)
 # ===========================================================
@@ -575,9 +987,25 @@ def api_predict():
 
 
 
+
+
+
+
+
+
+
+
     payload = request.get_json() or request.form.to_dict()
     X_raw = encode_input(payload)
     X_scaled = scaler.transform(X_raw)
+
+
+
+
+
+
+
+
 
 
 
@@ -600,6 +1028,14 @@ def api_predict():
 
 
 
+
+
+
+
+
+
+
+
     monthly_rate = float(payload.get("InterestRate", 0)) / 100 / 12
     if monthly_rate > 0:
         denom = 1 - (1 + monthly_rate) ** (-est_months)
@@ -614,12 +1050,28 @@ def api_predict():
 
 
 
+
+
+
+
+
+
+
+
     schedule, outstanding = [], loan_amount
     for m in range(1, est_months + 1):
         interest = outstanding * monthly_rate
         principal = monthly_payment - interest
         outstanding = max(0, outstanding - principal)
         schedule.append({"month": m, "payment": round(monthly_payment, 2), "outstanding": round(outstanding, 2)})
+
+
+
+
+
+
+
+
 
 
 
@@ -643,14 +1095,61 @@ def api_predict():
 
 
 
-    return jsonify({
+
+
+
+
+    result_payload = {
         "probability": round(prob, 4),
         "risk_level": risk_level,
         "estimated_months": est_months,
         "monthly_payment": round(monthly_payment, 2),
         "schedule": schedule,
         "suggestion": suggestion
-    })
+    }
+
+
+    # Store this prediction in the per-user portfolio history (not visible elsewhere)
+    try:
+        username = session.get("user")
+        if username:
+            entry = {
+                "timestamp": datetime.utcnow().isoformat() + "Z",
+                "input": payload,
+                "prediction": {
+                    "probability": result_payload["probability"],
+                    "risk_level": result_payload["risk_level"],
+                    "estimated_months": result_payload["estimated_months"],
+                    "monthly_payment": result_payload["monthly_payment"],
+                    "suggestion": result_payload["suggestion"],
+                },
+            }
+            user_history = portfolio_history.get(username, [])
+            user_history.append(entry)
+            portfolio_history[username] = user_history
+            save_portfolio_history(portfolio_history)
+    except Exception as e:
+        # Do not break prediction flow if history logging fails
+        print(f"⚠️ Failed to log portfolio entry: {e}")
+
+
+    return jsonify(result_payload)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -681,8 +1180,69 @@ def api_visuals():
         "loan_amount_values": loan_vals,
         "correlations": corr
     })
-   
-   
+ 
+
+
+@app.route("/api/occupation_approval", methods=["GET"])
+def api_occupation_approval():
+    """
+    Occupation-wise approval rates.
+    NOTE:
+    - In the dataset, `Default` = 1 means the loan defaulted (i.e., NOT approved in the long run).
+    - Approval rate is therefore computed as 1 - default_rate, as requested.
+    - We treat `EmploymentType` as the occupation dimension for this visualization.
+    """
+    df_local = df.copy()
+
+
+    # Basic safety check to avoid breaking if schema changes
+    if "EmploymentType" not in df_local.columns or "Default" not in df_local.columns:
+        return jsonify({"error": "Required columns not found"}), 500
+
+
+    # Ensure Default is numeric (0/1); coerce errors to NaN then drop
+    df_local["Default"] = pd.to_numeric(df_local["Default"], errors="coerce")
+    df_local = df_local.dropna(subset=["Default"])
+
+
+    grouped = (
+        df_local.groupby("EmploymentType")["Default"]
+        .mean()
+        .reset_index()
+        .rename(columns={"Default": "default_rate"})
+    )
+    grouped["approval_rate"] = 1.0 - grouped["default_rate"]
+
+
+    return jsonify({
+        "occupation_approval": grouped[["EmploymentType", "approval_rate"]].to_dict(orient="records")
+    })
+
+
+
+
+@app.route("/api/portfolio", methods=["GET"])
+def api_portfolio():
+    """
+    Return the logged prediction history for the currently logged-in user.
+    Data is stored server-side and only exposed through this endpoint.
+    """
+    username = session.get("user")
+    if not username:
+        return jsonify({"entries": []})
+    entries = portfolio_history.get(username, [])
+    # Return in reverse chronological order (latest first) for display
+    return jsonify({"entries": list(reversed(entries))})
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -848,11 +1408,35 @@ def recommend_bank():
 
 
 
+
+
+
+
+
+
+
+
     except Exception as e:
         print(f"❌ Bank recommendation error: {str(e)}")
         import traceback
         traceback.print_exc()
         return jsonify({"error": f"An error occurred during bank recommendation: {str(e)}"}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -914,7 +1498,9 @@ def api_clusters():
                     'color': color,
                     'avg_income': float(cluster_data['Income'].mean()),
                     'avg_credit': float(cluster_data['CreditScore'].mean()),
-                    'default_rate': float(cluster_data['Default'].mean())
+                    'default_rate': float(cluster_data['Default'].mean()),
+                    # NEW: average loan amount per cluster (for visualization only)
+                    'avg_loan_amount': float(cluster_data['LoanAmount'].mean()) if 'LoanAmount' in cluster_data.columns else None
                 })
            
             print(f"✅ Loaded {len(formatted_clusters)} clusters")
@@ -932,6 +1518,22 @@ def api_clusters():
         import traceback
         traceback.print_exc()
         return jsonify({"error": f"Clustering failed: {str(e)}"}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1003,6 +1605,14 @@ def api_test_cluster():
 
 
 
+
+
+
+
+
+
+
+
         # RiskScore formula (Default=0 for new prediction)
         risk_score = (
             (1 - credit_norm) * 3.0 +
@@ -1020,11 +1630,27 @@ def api_test_cluster():
 
 
 
+
+
+
+
+
+
+
+
         # 3. Preprocess and Combine
         X_user_processed = cluster_preprocessor.transform(user_data[numeric_features + categorical_features])
        
         # Combine the processed features with the custom RiskScore
         X_user_combined = np.hstack([X_user_processed, np.array([[risk_score]])])
+
+
+
+
+
+
+
+
 
 
 
@@ -1058,6 +1684,22 @@ def api_test_cluster():
         import traceback
         traceback.print_exc()
         return jsonify({"error": f"Server error: {str(e)}"}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1121,6 +1763,8 @@ You help users with questions about:
 - Financial advice related to loans
 - Understanding loan terms and conditions
 - Bank recommendations and loan options
+
+
 
 
 Be friendly, professional, and provide accurate information. If asked about something outside your expertise, politely redirect to loan-related topics."""
@@ -1223,6 +1867,10 @@ Be friendly, professional, and provide accurate information. If asked about some
 
 
 
+
+
+
+
 # ===========================================================
 # ✅ Repayment Timeline & Strategy Endpoint (UNCHANGED)
 # ===========================================================
@@ -1242,8 +1890,24 @@ def api_repayment():
 
 
 
+
+
+
+
+
+
+
+
     if income <= 0 or loan_amount <= 0:
         return jsonify({"error": "Invalid income or loan amount."}), 400
+
+
+
+
+
+
+
+
 
 
 
@@ -1262,11 +1926,27 @@ def api_repayment():
 
 
 
+
+
+
+
+
+
+
+
     if interest_rate > 0:
         denom = 1 - (1 + interest_rate) ** (-est_months)
         monthly_payment = loan_amount * (interest_rate / denom)
     else:
         monthly_payment = loan_amount / est_months
+
+
+
+
+
+
+
+
 
 
 
@@ -1293,6 +1973,14 @@ def api_repayment():
 
 
 
+
+
+
+
+
+
+
+
     strategy = (
         "Low risk — maintain regular EMI payments."
         if risk < 0.05 else
@@ -1308,12 +1996,36 @@ def api_repayment():
 
 
 
+
+
+
+
+
+
+
+
     return jsonify({
         "strategy": strategy,
         "timeline": schedule[:12],  # first 12 months
         "monthly_payment": round(monthly_payment, 2),
         "total_months": est_months
     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
