@@ -1,19 +1,4 @@
-thisis original code
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Loan Dashboard</title>
-
-    <!-- Bootstrap + Chart.js -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        body {
-            background: #f7f9fc;<!DOCTYPE html>
 <html lang="en">
 
 
@@ -453,61 +438,134 @@ thisis original code
             padding: 0;
         }
 
-        /* Chatbot Styles */
+        /* --- PORTFOLIO STYLES --- */
+        .portfolio-entry-card {
+            border-radius: 14px;
+            background: #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            border-left: 4px solid #007bff;
+        }
+
+        .portfolio-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-entry-title {
+            font-weight: 600;
+        }
+
+        .portfolio-section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #6c757d;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .portfolio-key-value {
+            font-size: 0.9rem;
+        }
+
+        .portfolio-key {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .portfolio-value {
+            color: #212529;
+        }
+
+        /* --- CHATBOT STYLES --- */
+        .chatbot-card {
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-window {
+            flex: 1;
+            border-radius: 12px;
+            background: #f8f9fa;
+            padding: 16px;
+            overflow-y: auto;
+            max-height: 400px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
         .chat-message {
-            animation: fadeInSlide 0.3s ease-out;
+            display: flex;
+            margin-bottom: 12px;
+            animation: fadeInSlide 0.4s ease-out;
         }
 
-        .user-message {
-            display: flex;
+        .chat-message.user {
             justify-content: flex-end;
-            margin-bottom: 15px;
         }
 
-        .user-message .message-content {
-            max-width: 70%;
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            color: white;
-            padding: 12px 18px;
-            border-radius: 18px 18px 4px 18px;
-            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
-        }
-
-        .bot-message {
-            display: flex;
+        .chat-message.bot {
             justify-content: flex-start;
-            margin-bottom: 15px;
         }
 
-        .bot-message .message-content {
-            max-width: 70%;
-            background: white;
-            color: var(--text-color);
-            padding: 12px 18px;
-            border-radius: 18px 18px 18px 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .chat-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
 
-        #chatMessages {
-            scroll-behavior: smooth;
+        .chat-message.user .chat-bubble {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: #fff;
+            border-bottom-right-radius: 4px;
         }
 
-        #chatMessages::-webkit-scrollbar {
-            width: 6px;
+        .chat-message.bot .chat-bubble {
+            background: #ffffff;
+            color: #212529;
+            border-bottom-left-radius: 4px;
         }
 
-        #chatMessages::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            margin-right: 8px;
         }
 
-        #chatMessages::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
+        .chat-message.user .chat-avatar {
+            display: none;
         }
 
-        #chatMessages::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        .chat-timestamp {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .chat-input-row {
+            margin-top: 16px;
+        }
+
+        .chat-input-row .form-control {
+            border-radius: 999px;
+        }
+
+        .chat-input-row .btn {
+            border-radius: 999px;
         }
     </style>
 </head>
@@ -532,9 +590,10 @@ thisis original code
             <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#predict">💰 Loan Prediction</a>
             </li>
             <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#visuals">📊 Visual Insights</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#portfolio">📁 Loan Portfolio</a></li>
             <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#banks">🏦 Bank Suggestion</a></li>
             <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clusters">⭐ Customer Clusters</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#chatbot">🤖 Chatbot</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#chatbot">🤖 AI Chatbot</a></li>
         </ul>
 
 
@@ -744,6 +803,28 @@ thisis original code
                             <canvas id="corrChart"></canvas>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="card p-3 h-100">
+                            <h5 class="text-primary">Occupation-wise Approval Rate 👔</h5>
+                            <canvas id="occupationApprovalChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="portfolio" class="tab-pane">
+                <div class="card p-4">
+                    <h4 class="card-title text-primary mb-2">Loan Portfolio Overview 📁</h4>
+                    <p class="text-muted mb-3">
+                        A consolidated view of your past loan risk assessments based on your inputs and model predictions.
+                    </p>
+                    <div id="portfolioContainer">
+                        <!-- Entries will be injected here -->
+                    </div>
+                    <div id="portfolioEmpty" class="text-muted" style="display:none;">
+                        No portfolio history found yet. Submit a prediction to start building your portfolio.
+                    </div>
                 </div>
             </div>
 
@@ -853,6 +934,13 @@ thisis original code
                         </div>
                     </div>
 
+                    <!-- NEW: Average Loan Amount per Cluster Bar Chart -->
+                    <div class="row g-4 mt-4">
+                        <div class="col-md-12">
+                            <canvas id="clusterLoanChart" width="800" height="300" style="display:none;"></canvas>
+                        </div>
+                    </div>
+
 
 
 
@@ -921,37 +1009,25 @@ thisis original code
                     </div>
                 </div>
             </div>
-
+            
             <div id="chatbot" class="tab-pane">
-                <div class="card p-4">
-                    <h4 class="card-title text-primary mb-4">AI Chatbot Assistant 🤖</h4>
-                    <p class="text-muted mb-4">Ask me anything about loans, financial advice, or loan default predictions!</p>
-                    
-                    <div class="card" style="height: 500px; display: flex; flex-direction: column; background: var(--card-background);">
-                        <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 20px; background: var(--background-light); border-radius: 12px 12px 0 0;">
-                            <div class="chat-message bot-message mb-3">
-                                <div class="d-flex align-items-start">
-                                    <div class="me-2">
-                                        <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">🤖</div>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="card p-3" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                            <p class="mb-0">Hello! I'm your AI assistant. How can I help you with loans and financial questions today?</p>
-                                        </div>
-                                        <small class="text-muted ms-2">Just now</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; border-radius: 0 0 12px 12px;">
-                            <form id="chatbotForm" class="d-flex gap-2">
-                                <input type="text" id="chatInput" class="form-control" placeholder="Type your message here..." autocomplete="off" required style="border-radius: 25px; padding: 10px 20px;">
-                                <button type="submit" class="btn btn-primary" style="border-radius: 25px; padding: 10px 25px; min-width: 100px;">
-                                    <span id="sendBtnText">Send</span>
-                                    <span id="sendBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                                </button>
-                            </form>
-                        </div>
+                <div class="card p-4 chatbot-card">
+                    <h4 class="card-title text-primary mb-2">LoanLens AI Assistant 🤖</h4>
+                    <p class="text-muted mb-3">
+                        Ask anything about loans, credit scores, default risk, repayment strategies, or bank options. 
+                        The assistant uses Gemini to give you focused, finance-aware answers.
+                    </p>
+                    <div id="chatWindow" class="chat-window mb-2">
+                        <!-- Messages will be injected here -->
+                    </div>
+                    <div class="chat-input-row">
+                        <form id="chatForm" class="d-flex gap-2">
+                            <input type="text" id="chatInput" class="form-control" placeholder="Type your question here..." autocomplete="off" required />
+                            <button type="submit" id="chatSendBtn" class="btn btn-primary px-4">
+                                Send
+                            </button>
+                        </form>
+                        <small id="chatStatus" class="text-muted d-block mt-1" style="min-height: 18px;"></small>
                     </div>
                 </div>
             </div>
@@ -1096,10 +1172,10 @@ thisis original code
 </body>
 
 
-</html>
+    </html>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    let educationChart, corrChart, clustersChart, clusterPie;
+    let educationChart, corrChart, occupationChart, clustersChart, clusterPie, clusterLoanChart;
 
 
 
@@ -1251,6 +1327,12 @@ thisis original code
                                 <strong>💡 Recommendation:</strong> ${out.suggestion || 'No specific recommendation available.'}
                             </div>
                         </div>`;
+                    // Refresh portfolio so the latest prediction appears in the overview
+                    try {
+                        await loadPortfolio();
+                    } catch (e) {
+                        console.error("Could not refresh portfolio after prediction:", e);
+                    }
                 } else {
                     document.getElementById("predictResult").innerHTML =
                         `<div class='alert alert-danger' style='border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);'>
@@ -1325,11 +1407,178 @@ thisis original code
                         }
                     }
                 });
+
+                // Occupation-wise approval rates (treat EmploymentType as occupation)
+                try {
+                    const occRes = await fetch("/api/occupation_approval");
+                    const occData = await occRes.json();
+                    if (occRes.ok && occData.occupation_approval) {
+                        if (occupationChart) occupationChart.destroy();
+                        const labels = occData.occupation_approval.map(d => d.EmploymentType);
+                        const values = occData.occupation_approval.map(d => d.approval_rate);
+                        occupationChart = new Chart(document.getElementById("occupationApprovalChart"), {
+                            type: "bar",
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: "Approval Rate (1 - Default Rate)",
+                                    data: values,
+                                    backgroundColor: '#007bff'
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: true,
+                                        position: 'bottom'
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: (ctx) => `Approval Rate: ${(ctx.parsed.y * 100).toFixed(2)}%`
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        max: 1,
+                                        ticks: {
+                                            callback: (value) => `${(value * 100).toFixed(0)}%`
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: "Approval Rate"
+                                        }
+                                    },
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: "Occupation (Employment Type)"
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error("Occupation approval load failed:", e);
+                }
             } catch (e) {
                 console.error("Visuals load failed:", e);
             }
         }
         loadVisuals();
+
+        // --- Loan Portfolio (per-user history) ---
+        async function loadPortfolio() {
+            const container = document.getElementById("portfolioContainer");
+            const emptyState = document.getElementById("portfolioEmpty");
+            if (!container) return;
+
+            container.innerHTML = "";
+            if (emptyState) emptyState.style.display = "none";
+
+            try {
+                const res = await fetch("/api/portfolio");
+                const data = await res.json();
+                const entries = data.entries || [];
+
+                if (!entries.length) {
+                    if (emptyState) emptyState.style.display = "block";
+                    return;
+                }
+
+                entries.forEach((entry, index) => {
+                    const wrapper = document.createElement("div");
+                    wrapper.classList.add("portfolio-entry-card");
+
+                    const header = document.createElement("div");
+                    header.classList.add("portfolio-entry-header");
+
+                    const title = document.createElement("div");
+                    title.classList.add("portfolio-entry-title");
+                    title.textContent = `Assessment #${entries.length - index}`;
+
+                    const timestamp = document.createElement("div");
+                    timestamp.classList.add("text-muted");
+                    const ts = entry.timestamp ? new Date(entry.timestamp) : null;
+                    timestamp.textContent = ts ? ts.toLocaleString('en-IN') : "";
+
+                    header.appendChild(title);
+                    header.appendChild(timestamp);
+                    wrapper.appendChild(header);
+
+                    // Prediction summary
+                    const pred = entry.prediction || {};
+                    const input = entry.input || {};
+
+                    const summarySection = document.createElement("div");
+                    summarySection.innerHTML = `
+                        <div class="portfolio-section-label">Prediction Summary</div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Risk Level:</span>
+                            <span class="portfolio-value"> ${pred.risk_level || "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Default Probability:</span>
+                            <span class="portfolio-value"> ${(pred.probability != null ? (pred.probability * 100).toFixed(2) + "%" : "N/A")}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Monthly Payment:</span>
+                            <span class="portfolio-value"> ${pred.monthly_payment != null ? "₹" + parseInt(pred.monthly_payment).toLocaleString('en-IN') : "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Estimated Tenure:</span>
+                            <span class="portfolio-value"> ${pred.estimated_months != null ? pred.estimated_months + " months" : "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Recommendation:</span>
+                            <span class="portfolio-value"> ${pred.suggestion || "N/A"}</span>
+                        </div>
+                    `;
+                    wrapper.appendChild(summarySection);
+
+                    // Key input snapshot
+                    const inputSection = document.createElement("div");
+                    inputSection.classList.add("mt-2");
+                    inputSection.innerHTML = `
+                        <div class="portfolio-section-label">Key Inputs</div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Income:</span>
+                            <span class="portfolio-value"> ${input.Income ? "₹" + parseInt(input.Income).toLocaleString('en-IN') : "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Loan Amount:</span>
+                            <span class="portfolio-value"> ${input.LoanAmount ? "₹" + parseInt(input.LoanAmount).toLocaleString('en-IN') : "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Credit Score:</span>
+                            <span class="portfolio-value"> ${input.CreditScore || "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Age:</span>
+                            <span class="portfolio-value"> ${input.Age || "N/A"}</span>
+                        </div>
+                        <div class="portfolio-key-value">
+                            <span class="portfolio-key">Loan Purpose:</span>
+                            <span class="portfolio-value"> ${input.LoanPurpose || "N/A"}</span>
+                        </div>
+                    `;
+                    wrapper.appendChild(inputSection);
+
+                    container.appendChild(wrapper);
+                });
+            } catch (e) {
+                console.error("Portfolio load failed:", e);
+                if (emptyState) {
+                    emptyState.style.display = "block";
+                    emptyState.textContent = "Failed to load portfolio history.";
+                }
+            }
+        }
+        // Initial load so portfolio tab is ready when opened
+        loadPortfolio();
 
 
 
@@ -1403,6 +1652,10 @@ thisis original code
                 document.getElementById("clustersChart").style.display = 'block';
                 document.getElementById("clusterPie").style.display = 'block';
                 document.getElementById("clusterTestCard").style.display = 'block';
+                const clusterLoanCanvas = document.getElementById("clusterLoanChart");
+                if (clusterLoanCanvas) {
+                    clusterLoanCanvas.style.display = 'block';
+                }
 
 
 
@@ -1439,6 +1692,7 @@ thisis original code
                 // Destroy previous charts if they exist
                 if (clustersChart) clustersChart.destroy();
                 if (clusterPie) clusterPie.destroy();
+                if (clusterLoanChart) clusterLoanChart.destroy();
 
 
 
@@ -1491,6 +1745,63 @@ thisis original code
                         }
                     }
                 });
+
+
+                // NEW: Bar chart for average loan amount per cluster
+                const loanCtx = document.getElementById("clusterLoanChart")?.getContext("2d");
+                if (loanCtx) {
+                    const loanLabels = data.clusters.map(c => `Cluster ${c.cluster_id || c.cluster}`);
+                    const loanValues = data.clusters.map(c => c.avg_loan_amount || 0);
+
+                    clusterLoanChart = new Chart(loanCtx, {
+                        type: "bar",
+                        data: {
+                            labels: loanLabels,
+                            datasets: [{
+                                label: "Avg Loan Amount (₹)",
+                                data: loanValues,
+                                backgroundColor: "#007bff"
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: "Average Loan Amount per Cluster"
+                                },
+                                legend: {
+                                    position: "bottom"
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: (ctx) =>
+                                            `Avg Loan: ₹${parseInt(ctx.parsed.y || 0).toLocaleString('en-IN')}`
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: "Average Loan Amount (₹)"
+                                    },
+                                    ticks: {
+                                        callback: (value) =>
+                                            `₹${parseInt(value || 0).toLocaleString('en-IN')}`
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: "Cluster"
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
 
 
 
@@ -1583,661 +1894,117 @@ thisis original code
             }
         });
 
-
-        // --- Chatbot Functionality ---
-        const chatMessages = document.getElementById("chatMessages");
-        const chatbotForm = document.getElementById("chatbotForm");
+        // --- Chatbot (Gemini-backed) ---
+        const chatWindow = document.getElementById("chatWindow");
+        const chatForm = document.getElementById("chatForm");
         const chatInput = document.getElementById("chatInput");
-        const sendBtnText = document.getElementById("sendBtnText");
-        const sendBtnSpinner = document.getElementById("sendBtnSpinner");
+        const chatSendBtn = document.getElementById("chatSendBtn");
+        const chatStatus = document.getElementById("chatStatus");
 
-        function addMessage(message, isUser = false) {
-            const messageDiv = document.createElement("div");
-            messageDiv.className = isUser ? "chat-message user-message" : "chat-message bot-message";
-            
-            if (isUser) {
-                messageDiv.innerHTML = `
-                    <div class="d-flex align-items-end justify-content-end w-100">
-                        <div class="flex-grow-1" style="max-width: 70%;">
-                            <div class="message-content">
-                                <p class="mb-0">${message}</p>
-                            </div>
-                            <small class="text-muted d-block text-end mt-1">Just now</small>
-                        </div>
-                        <div class="ms-2">
-                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #6c757d 0%, #495057 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">👤</div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                messageDiv.innerHTML = `
-                    <div class="d-flex align-items-start">
-                        <div class="me-2">
-                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">🤖</div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="message-content">
-                                <p class="mb-0">${message}</p>
-                            </div>
-                            <small class="text-muted ms-2">Just now</small>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        function formatTime(date) {
+            return date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
         }
 
-        chatbotForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const message = chatInput.value.trim();
-            
-            if (!message) return;
-            
-            // Add user message
-            addMessage(message, true);
-            chatInput.value = "";
-            
-            // Show loading state
-            sendBtnText.textContent = "Sending...";
-            sendBtnSpinner.classList.remove("d-none");
-            chatInput.disabled = true;
-            
-            try {
-                const res = await fetch("/api/chatbot", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ message: message })
-                });
-                
-                const data = await res.json();
-                
-                if (res.ok && data.response) {
-                    addMessage(data.response, false);
-                } else {
-                    // Show the actual error message from the API
-                    const errorMsg = data.error || "Sorry, I encountered an error. Please try again later.";
-                    addMessage(`Error: ${errorMsg}`, false);
-                    console.error("Chatbot API error:", data);
-                }
-            } catch (err) {
-                console.error("Chatbot error:", err);
-                addMessage("Sorry, I'm having trouble connecting. Please try again later.", false);
-            } finally {
-                // Restore button state
-                sendBtnText.textContent = "Send";
-                sendBtnSpinner.classList.add("d-none");
-                chatInput.disabled = false;
-                chatInput.focus();
+        function addChatMessage(sender, text, isTyping = false) {
+            if (!chatWindow) return;
+            const wrapper = document.createElement("div");
+            wrapper.classList.add("chat-message", sender === "user" ? "user" : "bot");
+
+            const bubble = document.createElement("div");
+            bubble.classList.add("chat-bubble");
+
+            if (sender === "bot") {
+                const avatar = document.createElement("div");
+                avatar.classList.add("chat-avatar");
+                avatar.textContent = "🤖";
+                wrapper.appendChild(avatar);
             }
-        });
 
+            bubble.textContent = text;
+            wrapper.appendChild(bubble);
 
+            if (!isTyping) {
+                const ts = document.createElement("div");
+                ts.classList.add("chat-timestamp");
+                ts.textContent = formatTime(new Date());
+                wrapper.appendChild(ts);
+            }
+
+            chatWindow.appendChild(wrapper);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            return wrapper;
+        }
+
+        // Initial welcome message
+        if (chatWindow && chatWindow.children.length === 0) {
+            addChatMessage("bot", "Hi! I’m the LoanLens AI assistant powered by Gemini. Ask me anything about loans, defaults, credit scores, or repayment strategies.");
+        }
+
+        if (chatForm) {
+            chatForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const message = (chatInput?.value || "").trim();
+                if (!message) return;
+
+                // Show user message
+                addChatMessage("user", message);
+                if (chatInput) chatInput.value = "";
+
+                // Show typing indicator
+                let typingBubble = addChatMessage("bot", "Thinking...", true);
+                if (chatStatus) {
+                    chatStatus.textContent = "Connecting to Gemini...";
+                }
+                if (chatSendBtn) {
+                    chatSendBtn.disabled = true;
+                }
+
+                try {
+                    const res = await fetch("/api/chatbot", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ message })
+                    });
+                    const out = await res.json();
+
+                    // Remove typing bubble
+                    if (typingBubble && typingBubble.parentNode) {
+                        typingBubble.parentNode.removeChild(typingBubble);
+                    }
+
+                    if (res.ok && out.response) {
+                        addChatMessage("bot", out.response);
+                        if (chatStatus) {
+                            chatStatus.textContent = "";
+                        }
+                    } else {
+                        const errMsg = out.error || "Sorry, I couldn't generate an answer right now.";
+                        addChatMessage("bot", errMsg);
+                        if (chatStatus) {
+                            chatStatus.textContent = "Error from Gemini service.";
+                        }
+                    }
+                } catch (err) {
+                    console.error("Chatbot error:", err);
+                    if (typingBubble && typingBubble.parentNode) {
+                        typingBubble.parentNode.removeChild(typingBubble);
+                    }
+                    addChatMessage("bot", "Network error. Please check your connection and try again.");
+                    if (chatStatus) {
+                        chatStatus.textContent = "Network error calling Gemini.";
+                    }
+                } finally {
+                    if (chatSendBtn) {
+                        chatSendBtn.disabled = false;
+                    }
+                }
+            });
+        }
     });
 </script>
 </body>
 
-
-</html>
-
-        }
-
-        .tab-content {
-            padding: 20px;
-        }
-
-        #chatBox {
-            height: 250px;
-            overflow-y: auto;
-            background: #f2f2f2;
-            border-radius: 8px;
-            padding: 10px;
-        }
-
-        canvas {
-            max-width: 100%;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container mt-4">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>🏦 AI Loan Dashboard</h2>
-            <a href="/logout" class="btn btn-outline-danger btn-sm">Logout</a>
-        </div>
-
-        <!-- Tabs -->
-        <ul class="nav nav-tabs" id="featureTabs">
-            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#predict">Loan Prediction</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#visuals">Visual Insights</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#banks">Bank Suggestion</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#clusters">Customer Clusters</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#chat">AI Chatbot</a></li>
-        </ul>
-
-        <div class="tab-content mt-3">
-
-            <!-- LOAN PREDICTION -->
-            <div id="predict" class="tab-pane fade show active">
-                <div class="card p-4">
-                    <h4>Loan Default Risk Prediction</h4>
-                    <form id="predictForm" class="row g-2">
-                        <div class="col-md-4"><input type="number" class="form-control" name="Income"
-                                placeholder="Income" required></div>
-                        <div class="col-md-4"><input type="number" class="form-control" name="LoanAmount"
-                                placeholder="Loan Amount" required></div>
-                        <div class="col-md-4"><input type="number" class="form-control" name="CreditScore"
-                                placeholder="Credit Score" required></div>
-                        <div class="col-md-4"><input type="number" class="form-control" name="Age" placeholder="Age"
-                                required></div>
-                        <div class="col-md-4"><input type="number" class="form-control" name="MonthsEmployed"
-                                placeholder="Months Employed" required></div>
-                        <div class="col-md-4"><input type="number" class="form-control" name="NumCreditLines"
-                                placeholder="Credit Lines" required></div>
-                        <div class="col-md-4"><input type="number" step="0.01" class="form-control" name="InterestRate"
-                                placeholder="Interest Rate %" required></div>
-                        <div class="col-md-4"><input type="number" class="form-control" name="LoanTerm"
-                                placeholder="Loan Term (months)" required></div>
-                        <div class="col-md-4"><input type="number" step="0.01" class="form-control" name="DTIRatio"
-                                placeholder="DTI Ratio" required></div>
-                        <div class="col-12"><button class="btn btn-primary mt-3" type="submit">Predict</button></div>
-                    </form>
-                    <div id="predictResult" class="mt-3"></div>
-                </div>
-            </div>
-
-            <!-- VISUAL INSIGHTS -->
-            <div id="visuals" class="tab-pane fade">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card p-3">
-                            <h5>Default Rate by Education</h5>
-                            <canvas id="educationChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card p-3">
-                            <h5>Feature Correlations</h5>
-                            <canvas id="corrChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BANK RECOMMENDATION -->
-            <div id="banks" class="tab-pane fade">
-                <div class="card p-4">
-                    <h4>Recommended Banks</h4>
-                    <form id="bankForm" class="row g-2">
-                        <div class="col-md-4"><input type="number" name="CreditScore" class="form-control"
-                                placeholder="Credit Score" required></div>
-                        <div class="col-md-4"><input type="number" name="Income" class="form-control"
-                                placeholder="Income" required></div>
-                        <div class="col-md-4"><input type="number" name="Age" class="form-control" placeholder="Age"
-                                required></div>
-                        <div class="col-md-4"><input type="number" name="LoanAmount" class="form-control"
-                                placeholder="Loan Amount" required></div>
-                        <div class="col-md-4"><input type="text" name="Education" class="form-control"
-                                placeholder="Education"></div>
-                        <div class="col-md-4"><input type="text" name="EmploymentType" class="form-control"
-                                placeholder="Employment Type"></div>
-                        <div class="col-12"><button class="btn btn-success mt-3" type="submit">Find Banks</button></div>
-                    </form>
-                    <div id="bankResult" class="mt-3"></div>
-                </div>
-            </div>
-
-            <!-- CUSTOMER CLUSTERS -->
-            <div id="clusters" class="tab-pane fade">
-                <div class="card p-4">
-                    <h4>Customer Risk Segmentation</h4>
-                    <p class="text-muted">6 clusters based on Income, Credit Score, Education, Marital Status, and
-                        Employment Type</p>
-
-                    <div id="clusterLoading" class="text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-
-                    <!-- Cluster Stats Table -->
-                    <div id="clusterStats" style="display:none;" class="mb-4"></div>
-
-                    <!-- Charts -->
-                    <div class="row">
-                        <div class="col-md-8">
-                            <canvas id="clustersChart" width="600" height="400" style="display:none;"></canvas>
-                        </div>
-                        <div class="col-md-4">
-                            <canvas id="clusterPie" width="300" height="300" style="display:none;"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Test Your Risk -->
-                    <div class="card mt-4 bg-light" style="display:none;" id="clusterTestCard">
-                        <div class="card-body">
-                            <h5>🎯 Find Your Risk Cluster</h5>
-                            <form id="clusterTestForm" class="row g-2">
-                                <div class="col-md-3">
-                                    <input type="number" name="Income" class="form-control" placeholder="Income"
-                                        required>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" name="CreditScore" class="form-control"
-                                        placeholder="Credit Score" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" name="Age" class="form-control" placeholder="Age" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" name="LoanAmount" class="form-control"
-                                        placeholder="Loan Amount" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <select name="Education" class="form-control" required>
-                                        <option value="">Select Education</option>
-                                        <option value="High School">High School</option>
-                                        <option value="Bachelor's">Bachelor's</option>
-                                        <option value="Master's">Master's</option>
-                                        <option value="PhD">PhD</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <select name="MaritalStatus" class="form-control" required>
-                                        <option value="">Select Marital Status</option>
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Divorced">Divorced</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <select name="EmploymentType" class="form-control" required>
-                                        <option value="">Select Employment</option>
-                                        <option value="Unemployed">Unemployed</option>
-                                        <option value="Self-employed">Self-employed</option>
-                                        <option value="Full-time">Full-time</option>
-                                        <option value="Part-time">Part-time</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Find My Cluster</button>
-                                </div>
-                            </form>
-                            <div id="clusterTestResult" class="mt-3"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CHATBOT -->
-            <div id="chat" class="tab-pane fade">
-                <div class="card p-4">
-                    <h4>Ask the AI Advisor (Gemini)</h4>
-                    <div id="chatBox"></div>
-                    <div class="input-group mt-3">
-                        <input type="text" id="chatInput" class="form-control" placeholder="Type your question...">
-                        <button id="chatSend" class="btn btn-dark">Send</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
-            // --- Loan Prediction ---
-            document.getElementById("predictForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const data = Object.fromEntries(new FormData(e.target).entries());
-                try {
-                    const res = await fetch("/api/predict", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(data)
-                    });
-                    const out = await res.json();
-                    document.getElementById("predictResult").innerHTML = res.ok
-                        ? `<div class='alert alert-info'>
-                            <strong>Risk Probability:</strong> ${(out.probability * 100).toFixed(2)}%<br>
-                            <strong>Monthly Payment:</strong> ₹${out.monthly_payment}<br>
-                            <strong>Estimated Duration:</strong> ${out.estimated_months} months<br>
-                            <strong>Suggestion:</strong> ${out.suggestion || ''}
-                           </div>`
-                        : `<div class='alert alert-danger'>${out.error}</div>`;
-                } catch (err) {
-                    console.error(err);
-                    document.getElementById("predictResult").innerHTML = `<div class='alert alert-danger'>Server error</div>`;
-                }
-            });
-
-            // --- Visual Insights ---
-            async function loadVisuals() {
-                try {
-                    const res = await fetch("/api/visuals");
-                    const data = await res.json();
-
-                    new Chart(document.getElementById("educationChart"), {
-                        type: "pie",
-                        data: {
-                            labels: data.default_by_education.map(d => d.Education),
-                            datasets: [{
-                                data: data.default_by_education.map(d => d.Default),
-                                backgroundColor: ["#007bff", "#28a745", "#ffc107", "#dc3545", "#17a2b8"]
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: { position: 'bottom' }
-                            }
-                        }
-                    });
-
-                    new Chart(document.getElementById("corrChart"), {
-                        type: "bar",
-                        data: {
-                            labels: Object.keys(data.correlations),
-                            datasets: [{
-                                label: "Correlation with Default",
-                                data: Object.values(data.correlations),
-                                backgroundColor: '#6c757d'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                } catch (e) {
-                    console.error("Visuals load failed:", e);
-                }
-            }
-            loadVisuals();
-
-            // --- Bank Recommendation ---
-            document.getElementById("bankForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const data = Object.fromEntries(new FormData(e.target).entries());
-                try {
-                    const res = await fetch("/api/recommend_bank", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(data)
-                    });
-                    const out = await res.json();
-                    const box = document.getElementById("bankResult");
-
-                    if (!res.ok || out.error || out.message) {
-                        box.innerHTML = `<div class='alert alert-warning'>${out.error || out.message}</div>`;
-                    } else {
-                        // Handle array of banks
-                        const banks = Array.isArray(out) ? out : [out];
-                        box.innerHTML = `<h5>🏦 Recommended Banks</h5><div class="list-group">` +
-                            banks.map(r => `
-                                <div class="list-group-item">
-                                    <h6 class="mb-1">${r.Bank_Name || 'N/A'}</h6>
-                                    <p class="mb-1">
-                                        <strong>Interest Rate:</strong> ${r.Interest_Rate || 'N/A'}% | 
-                                        <strong>Processing Fee:</strong> ₹${r.Processing_Fee || 'N/A'} |
-                                        <strong>Loan Type:</strong> ${r.Loan_Type || 'N/A'}
-                                    </p>
-                                </div>
-                            `).join('') +
-                            `</div>`;
-                    }
-                } catch (err) {
-                    console.error(err);
-                    document.getElementById("bankResult").innerHTML = `<div class='alert alert-danger'>Server error</div>`;
-                }
-            });
-
-            // --- Customer Clusters ---
-            async function loadClusters() {
-                try {
-                    const res = await fetch("/api/clusters");
-                    if (!res.ok) {
-                        const error = await res.json();
-                        document.getElementById("clusterLoading").innerHTML =
-                            `<div class='alert alert-danger'>${error.error || 'Failed to load clusters'}</div>`;
-                        return;
-                    }
-
-                    const data = await res.json();
-
-                    // Hide loading spinner
-                    document.getElementById("clusterLoading").style.display = 'none';
-                    document.getElementById("clustersChart").style.display = 'block';
-                    document.getElementById("clusterPie").style.display = 'block';
-                    document.getElementById("clusterTestCard").style.display = 'block';
-
-                    // Check if new clustering format (has risk_label)
-                    const isNewFormat = data.clusters[0] && data.clusters[0].risk_label;
-
-                    if (isNewFormat) {
-                        // Show cluster stats table
-                        const statsDiv = document.getElementById("clusterStats");
-                        statsDiv.style.display = 'block';
-                        statsDiv.innerHTML = `
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Cluster</th>
-                                        <th>Risk Level</th>
-                                        <th>Size</th>
-                                        <th>Avg Income</th>
-                                        <th>Avg Credit</th>
-                                        <th>Default Rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${data.clusters.map(c => `
-                                        <tr>
-                                            <td><span class="badge" style="background-color: ${c.color}">Cluster ${c.cluster_id}</span></td>
-                                            <td>${c.risk_label}</td>
-                                            <td>${c.size}</td>
-                                            <td>₹${c.avg_income.toFixed(0)}</td>
-                                            <td>${c.avg_credit.toFixed(0)}</td>
-                                            <td>${(c.default_rate * 100).toFixed(1)}%</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        `;
-
-                        // Scatter chart with risk labels
-                        const ctx = document.getElementById("clustersChart").getContext("2d");
-                        new Chart(ctx, {
-                            type: "scatter",
-                            data: {
-                                datasets: data.clusters.map(cluster => ({
-                                    label: `${cluster.risk_label} (Cluster ${cluster.cluster_id})`,
-                                    data: cluster.points.map(p => ({
-                                        x: p.income,
-                                        y: p.credit_score || p.default_prob
-                                    })),
-                                    backgroundColor: cluster.color,
-                                    pointRadius: 4,
-                                    pointHoverRadius: 6
-                                }))
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: "Customer Risk Segmentation: Income vs Credit Score",
-                                        font: { size: 16 }
-                                    },
-                                    legend: { position: 'bottom' }
-                                },
-                                scales: {
-                                    x: {
-                                        title: { display: true, text: "Income (₹)" },
-                                        beginAtZero: true
-                                    },
-                                    y: {
-                                        title: { display: true, text: "Credit Score" },
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-
-                        // Pie chart by risk level
-                        const pieCtx = document.getElementById("clusterPie").getContext("2d");
-                        const riskGroups = {};
-                        data.clusters.forEach(c => {
-                            if (!riskGroups[c.risk_label]) {
-                                riskGroups[c.risk_label] = { size: 0, color: c.color };
-                            }
-                            riskGroups[c.risk_label].size += c.size;
-                        });
-
-                        new Chart(pieCtx, {
-                            type: "pie",
-                            data: {
-                                labels: Object.keys(riskGroups),
-                                datasets: [{
-                                    data: Object.values(riskGroups).map(g => g.size),
-                                    backgroundColor: Object.values(riskGroups).map(g => g.color)
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    title: { display: true, text: "Customer Distribution by Risk Level" },
-                                    legend: { position: 'bottom' }
-                                }
-                            }
-                        });
-
-                    } else {
-                        // Legacy format
-                        const ctx = document.getElementById("clustersChart").getContext("2d");
-                        new Chart(ctx, {
-                            type: "scatter",
-                            data: {
-                                datasets: data.clusters.map((cluster, i) => ({
-                                    label: `Cluster ${i + 1}`,
-                                    data: cluster.points.map(p => ({ x: p.income, y: p.default_prob })),
-                                    backgroundColor: cluster.color,
-                                    pointRadius: 5
-                                }))
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    title: { display: true, text: "Customer Segmentation by Income & Default" },
-                                    legend: { position: 'bottom' }
-                                },
-                                scales: {
-                                    x: { title: { display: true, text: "Income" }, beginAtZero: true },
-                                    y: { title: { display: true, text: "Default Probability" }, beginAtZero: true, max: 1 }
-                                }
-                            }
-                        });
-
-                        const pieCtx = document.getElementById("clusterPie").getContext("2d");
-                        new Chart(pieCtx, {
-                            type: "pie",
-                            data: {
-                                labels: data.clusters.map((_, i) => `Cluster ${i + 1}`),
-                                datasets: [{
-                                    data: data.clusters.map(c => c.size),
-                                    backgroundColor: data.clusters.map(c => c.color)
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    title: { display: true, text: "Cluster Size Distribution" },
-                                    legend: { position: 'bottom' }
-                                }
-                            }
-                        });
-                    }
-
-                } catch (e) {
-                    console.error("Cluster load failed:", e);
-                    document.getElementById("clusterLoading").innerHTML =
-                        `<div class='alert alert-danger'>Failed to load cluster data</div>`;
-                }
-            }
-            loadClusters();
-
-            // --- Cluster Assignment Test ---
-            document.getElementById("clusterTestForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const data = Object.fromEntries(new FormData(e.target).entries());
-                const resultDiv = document.getElementById("clusterTestResult");
-
-                try {
-                    const res = await fetch("/api/assign_cluster", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(data)
-                    });
-                    const out = await res.json();
-
-                    if (res.ok) {
-                        resultDiv.innerHTML = `
-                            <div class='alert' style='background-color: ${out.color}; color: white;'>
-                                <strong>${out.message}</strong><br>
-                                <small>Cluster ID: ${out.cluster} | Risk Level: ${out.risk_label}</small>
-                            </div>
-                        `;
-                    } else {
-                        resultDiv.innerHTML = `<div class='alert alert-danger'>${out.error}</div>`;
-                    }
-                } catch (err) {
-                    console.error(err);
-                    resultDiv.innerHTML = `<div class='alert alert-danger'>Server error</div>`;
-                }
-            });
-
-            // --- AI Chatbot ---
-            document.getElementById("chatSend").addEventListener("click", sendMessage);
-            document.getElementById("chatInput").addEventListener("keypress", (e) => {
-                if (e.key === 'Enter') sendMessage();
-            });
-
-            async function sendMessage() {
-                const msg = document.getElementById("chatInput").value.trim();
-                if (!msg) return;
-                const chatBox = document.getElementById("chatBox");
-                chatBox.innerHTML += `<div class="mb-2"><strong>You:</strong> ${msg}</div>`;
-                document.getElementById("chatInput").value = "";
-
-                try {
-                    const res = await fetch("/api/chat", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ message: msg })
-                    });
-                    const out = await res.json();
-                    chatBox.innerHTML += `<div class="mb-2"><strong>Bot:</strong> ${out.reply || 'No response'}</div>`;
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                } catch (err) {
-                    console.error(err);
-                    chatBox.innerHTML += `<div class="mb-2 text-danger"><strong>Bot:</strong> Server error</div>`;
-                }
-            }
-
-        });
-    </script>
-</body>
 
 </html>
