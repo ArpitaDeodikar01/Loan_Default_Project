@@ -11,6 +11,10 @@ Arpita Deodikar (UCE2023515)
 
 Jui Kulkarni (UCE2023532)
 
+PPT LINK - https://drive.google.com/file/d/1MPl6ut3UILGd-30BEGkkeAdSN1T-y2J6/view?usp=sharing
+
+[Uploading LoanLens A Multi-Stage Machine Learning Framework for Credit Risk Assessment and Personalized Financial Recommendation.pdf…]()
+
 
 ---
 
