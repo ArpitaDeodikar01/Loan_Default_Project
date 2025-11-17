@@ -9,6 +9,10 @@ from sklearn.compose import ColumnTransformer
 
 
 
+
+
+
+
 print("="*80)
 print("🎯 RISK-BASED CUSTOMER CLUSTERING SYSTEM")
 print("="*80)
@@ -16,7 +20,9 @@ print("="*80)
 
 
 
-# Load data
+# ==========================================================
+# 1. Load data
+# ==========================================================
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE, "data", "loan_data.csv")
 MODELS_DIR = os.path.join(BASE, "models")
@@ -25,41 +31,45 @@ MODELS_DIR = os.path.join(BASE, "models")
 
 
 print("\n📊 Loading data...")
-# Use 'utf-8-sig' to handle potential BOM issues
 df = pd.read_csv(DATA_PATH, engine='python', encoding='utf-8-sig', on_bad_lines='skip')
 
 
 
 
-# Feature selection - using the features you want for risk-based clustering
+# ==========================================================
+# 2. Feature selection
+# ==========================================================
 numeric_features = ['Income', 'CreditScore', 'Age', 'LoanAmount']
 categorical_features = ['Education', 'MaritalStatus', 'EmploymentType']
-risk_calc_features = ['Income', 'CreditScore', 'LoanAmount'] # Features used for custom RiskScore
+risk_calc_features = ['Income', 'CreditScore', 'LoanAmount']  # For custom RiskScore
 
 
 
 
-# Ensure we have required columns
 required_cols = numeric_features + categorical_features + ['Default']
 missing = [col for col in required_cols if col not in df.columns]
 if missing:
-    print(f"⚠️ Missing columns: {missing}")
-    print(f"Available columns: {list(df.columns)}")
-    raise ValueError(f"Missing required columns: {missing}")
+    raise ValueError(f"⚠️ Missing required columns: {missing}")
 
 
 
 
-# Clean data
 df_cluster = df[required_cols].copy()
+
+
+
+
 for col in numeric_features:
     df_cluster[col] = pd.to_numeric(df_cluster[col], errors='coerce')
+
+
+
+
 df_cluster['Default'] = pd.to_numeric(df_cluster['Default'], errors='coerce')
 
 
 
 
-# Convert categorical to string and fill NaNs with a placeholder to avoid OHE error
 for col in categorical_features:
     df_cluster[col] = df_cluster[col].astype(str).fillna('Unknown')
 
@@ -67,26 +77,21 @@ for col in categorical_features:
 
 
 df_cluster = df_cluster.dropna()
-
-
-
-
 print(f"✅ Loaded {len(df_cluster)} valid records")
-print(f"📋 Numeric Features: {numeric_features}")
-print(f"📋 Categorical Features: {categorical_features}")
 
 
 
 
-# 1. Create a Scaler only for the Risk Calculation Features to save its state (MinMaxScaler needed for 0-1 range)
+# ==========================================================
+# 3. Scale numeric data for RiskScore
+# ==========================================================
 risk_scaler = MinMaxScaler()
-risk_features_scaled = risk_scaler.fit_transform(df_cluster[risk_calc_features])
-risk_df = pd.DataFrame(risk_features_scaled, columns=[f'{col}_norm' for col in risk_calc_features], index=df_cluster.index)
+risk_scaled = risk_scaler.fit_transform(df_cluster[risk_calc_features])
+risk_df = pd.DataFrame(risk_scaled, columns=[f'{c}_norm' for c in risk_calc_features], index=df_cluster.index)
 
 
 
 
-# Store scaler min/max values for API use
 risk_scaler_params = {
     'min': risk_scaler.data_min_.tolist(),
     'max': risk_scaler.data_max_.tolist(),
@@ -96,14 +101,14 @@ risk_scaler_params = {
 
 
 
-# 2. Calculate comprehensive risk score
-# Higher weight on CreditScore and Default history for risk-based clustering
-print("\n🎯 Creating risk-weighted features...")
+# ==========================================================
+# 4. Compute improved RiskScore (loan interacts with credit)
+# ==========================================================
+print("\n🎯 Creating improved risk-weighted features...")
 
 
 
 
-# Calculate risk score components using the scaled values
 credit_norm = risk_df['CreditScore_norm']
 income_norm = risk_df['Income_norm']
 loan_norm = risk_df['LoanAmount_norm']
@@ -111,159 +116,130 @@ loan_norm = risk_df['LoanAmount_norm']
 
 
 
+# Interaction: high loan + low credit => much higher risk
+loan_effect = loan_norm * (1 + (1 - credit_norm))
+
+
+
+
 df_cluster['RiskScore'] = (
-    (1 - credit_norm) * 3.0 +            # Credit score impact (inverted)
-    loan_norm * 2.0 +                    # Loan amount impact
-    (1 - income_norm) * 2.0 +            # Income impact (inverted)
-    df_cluster['Default'] * 5.0          # Default history (strongest weight)
-) / 12.0  # Normalize to 0-1 range
+    (1 - credit_norm) * 4 +      # Poor credit = higher risk
+    (1 - income_norm) * 2 +      # Low income = medium impact
+    loan_effect * 5 +            # Loan impact depends on credit
+    df_cluster['Default'] * 6    # Default history = strongest impact
+) / 17.0   # Normalize total weight
 
 
 
 
-# 3. Define the Preprocessing pipeline for KMeans
-# This transformer will be used on the original features for clustering
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', StandardScaler(), numeric_features),
-        ('cat', OneHotEncoder(sparse_output=False, handle_unknown='ignore'), categorical_features)
-    ],
-    remainder='passthrough'
-)
+# ==========================================================
+# 5. Preprocessing for KMeans
+# ==========================================================
+preprocessor = ColumnTransformer([
+    ('num', MinMaxScaler(), numeric_features),  # keep MinMax for fair range-based distance
+    ('cat', OneHotEncoder(sparse_output=False, handle_unknown='ignore'), categorical_features)
+])
 
 
 
 
-# Fit and transform data for clustering
-print("\n🔧 Preprocessing features...")
 X = preprocessor.fit_transform(df_cluster[numeric_features + categorical_features])
-
-
-
-
-# IMPORTANT: Save the feature names generated by OHE for API input validation/construction
 feature_names = numeric_features + list(preprocessor.named_transformers_['cat'].get_feature_names_out(categorical_features))
-print(f"✅ Total features after one-hot encoding: {len(feature_names)}")
 
 
 
 
-# 4. Train KMeans
-# Re-combine the processed features with the custom RiskScore for final clustering space
-X_combined = np.hstack([X, df_cluster[['RiskScore']].values])
+# Combine features + weighted RiskScore
+X_combined = np.hstack([X, df_cluster[['RiskScore']].values * 1.5])
 final_feature_names = feature_names + ['RiskScore']
 
 
 
 
-print("\n🎯 Training KMeans with 6 risk clusters on combined features...")
-kmeans = KMeans(
-    n_clusters=6,
-    random_state=42,
-    n_init=20,
-    max_iter=500,
-    algorithm='lloyd'
-)
-kmeans.fit(X_combined)
+# ==========================================================
+# 6. Train KMeans with 6 logical clusters
+# ==========================================================
+print("\n🎯 Training KMeans with 6 clusters...")
+kmeans = KMeans(n_clusters=6, random_state=42, n_init=25, max_iter=600)
+df_cluster['Cluster'] = kmeans.fit_predict(X_combined)
 
 
 
 
-# Assign clusters to dataframe
-df_cluster['Cluster'] = kmeans.labels_
-
-
-
-
-# 5. Calculate and assign risk labels
-print("\n📈 Calculating cluster risk labels based on multiple factors...")
+# ==========================================================
+# 7. Cluster interpretation
+# ==========================================================
+print("\n📈 Analyzing cluster patterns...")
 cluster_stats = df_cluster.groupby('Cluster').agg({
     'Default': 'mean',
     'RiskScore': 'mean',
     'CreditScore': 'mean',
     'Income': 'mean',
     'LoanAmount': 'mean'
-}).round(4)
+}).round(3)
 
 
 
 
-# Sort clusters by risk score (combination of default rate and risk score)
-cluster_stats['CombinedRisk'] = (cluster_stats['Default'] * 0.6 + cluster_stats['RiskScore'] * 0.4)
+cluster_stats['CombinedRisk'] = (0.7 * cluster_stats['Default'] + 0.3 * cluster_stats['RiskScore'])
 cluster_stats = cluster_stats.sort_values('CombinedRisk', ascending=False)
 
 
 
 
-# Assign risk labels and colors based on ranking
+# Logical color-coded risk levels
+risk_labels = ['Very High Risk', 'High Risk', 'Medium-High Risk', 'Medium Risk', 'Low-Medium Risk', 'Low Risk']
+risk_colors = ['#8B0000', '#DC3545', '#FD7E14', '#FFC107', '#17A2B8', '#28A745']
+
+
+
+
 cluster_risk = {}
 cluster_colors = {}
-risk_levels = ['High Risk', 'High Risk', 'Medium-High Risk', 'Medium Risk', 'Low-Medium Risk', 'Low Risk']
-risk_color_map = {
-    'High Risk': '#dc3545',       # Red
-    'Medium-High Risk': '#fd7e14',  # Orange
-    'Medium Risk': '#ffc107',      # Yellow
-    'Low-Medium Risk': '#20c997',  # Teal
-    'Low Risk': '#28a745'          # Green
-}
 
 
 
 
-for idx, (cluster_id, row) in enumerate(cluster_stats.iterrows()):
-    # Handle cases where we have fewer than 6 clusters
-    risk_label = risk_levels[min(idx, len(risk_levels) - 1)]
-    cluster_risk[cluster_id] = risk_label
-    cluster_colors[cluster_id] = risk_color_map[risk_label]
+for i, (cluster_id, _) in enumerate(cluster_stats.iterrows()):
+    cluster_risk[cluster_id] = risk_labels[i]
+    cluster_colors[cluster_id] = risk_colors[i]
 
 
 
 
-# Display Statistics (same as before)
-print("\n📊 CLUSTER STATISTICS (Ranked by Risk):")
+print("\n📊 CLUSTER OVERVIEW:")
 print("="*80)
-for idx, (cluster_id, stats) in enumerate(cluster_stats.iterrows()):
-    cluster_data = df_cluster[df_cluster['Cluster'] == cluster_id]
+for cluster_id, stats in cluster_stats.iterrows():
     risk = cluster_risk[cluster_id]
-    color = cluster_colors[cluster_id]
-    default_rate = stats['Default']
-    risk_score = stats['RiskScore']
-    size = len(cluster_data)
-   
-    print(f"\n🎯 Cluster {cluster_id} - {risk}")
-    print(f"   Color: {color}")
-    print(f"   Size: {size} customers ({size/len(df_cluster)*100:.1f}%)")
-    print(f"   Default Rate: {default_rate:.2%}")
-    print(f"   Risk Score: {risk_score:.3f}")
-   
-    for feat in numeric_features:
-        avg_val = cluster_data[feat].mean()
-        if feat in ['Income', 'LoanAmount']:
-            print(f"   Avg {feat}: ₹{avg_val:,.0f}")
-        else:
-            print(f"   Avg {feat}: {avg_val:,.1f}")
+    print(f"\n🔹 Cluster {cluster_id}: {risk}")
+    print(f"   Default Rate: {stats['Default']:.2%}")
+    print(f"   RiskScore Avg: {stats['RiskScore']:.3f}")
+    print(f"   Avg CreditScore: {stats['CreditScore']:.1f}")
+    print(f"   Avg Income: ₹{stats['Income']:,.0f}")
+    print(f"   Avg Loan: ₹{stats['LoanAmount']:,.0f}")
 
 
 
 
-# 6. Save Models and Metadata
+# ==========================================================
+# 8. Save models and metadata
+# ==========================================================
 os.makedirs(MODELS_DIR, exist_ok=True)
 
 
 
 
-print("\n💾 Saving risk clustering models and metadata...")
+print("\n💾 Saving models and metadata...")
 joblib.dump(kmeans, os.path.join(MODELS_DIR, "kmeans_clustering.joblib"))
 joblib.dump(preprocessor, os.path.join(MODELS_DIR, "cluster_preprocessor.joblib"))
 joblib.dump(cluster_risk, os.path.join(MODELS_DIR, "cluster_risk_labels.joblib"))
 joblib.dump(cluster_colors, os.path.join(MODELS_DIR, "cluster_colors.joblib"))
-joblib.dump(risk_scaler_params, os.path.join(MODELS_DIR, "risk_scaler_params.joblib")) # NEW: For RiskScore calculation in API
-joblib.dump(final_feature_names, os.path.join(MODELS_DIR, "cluster_feature_names.joblib")) # NEW: For consistency check
+joblib.dump(risk_scaler_params, os.path.join(MODELS_DIR, "risk_scaler_params.joblib"))
+joblib.dump(final_feature_names, os.path.join(MODELS_DIR, "cluster_feature_names.joblib"))
 
 
 
 
-# Save cluster data for visualization
 cluster_viz_data = df_cluster[numeric_features + ['Default', 'Cluster', 'RiskScore']].copy()
 cluster_viz_data['Risk'] = cluster_viz_data['Cluster'].map(cluster_risk)
 cluster_viz_data['Color'] = cluster_viz_data['Cluster'].map(cluster_colors)
@@ -273,7 +249,6 @@ cluster_viz_data.to_csv(os.path.join(BASE, "data", "cluster_data.csv"), index=Fa
 
 
 print("\n✅ MODELS SAVED SUCCESSFULLY!")
-print(f"\n🎉 Total features in clustering model: {len(final_feature_names)}")
-print("\n" + "="*80)
-print("✨ SUCCESS! Now update your Flask API to load the new metadata files and use the RiskScore in prediction!")
+print("="*80)
+print("✨ SUCCESS! Loan ↑ with low credit now correctly raises risk and cluster logic is stable.")
 print("="*80)
